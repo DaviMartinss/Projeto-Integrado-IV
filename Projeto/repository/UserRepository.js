@@ -1,4 +1,4 @@
-import { database } from "../config/BD/db.js";
+import { database } from "./config/BD/db.js"
 
 class UserRepository{
     async getUserList() {
