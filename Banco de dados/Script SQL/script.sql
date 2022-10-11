@@ -1,3 +1,19 @@
+-- Database: JogoMilhao
+
+-- DROP DATABASE IF EXISTS "JogoMilhao";
+
+CREATE DATABASE "JogoMilhao"
+    WITH
+    OWNER = --seu usuario
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'pt_BR.UTF-8'
+    LC_CTYPE = 'pt_BR.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+
+
 CREATE TABLE "User" (
 	"UserId" serial PRIMARY KEY NOT NULL,
 	"UserName" VARCHAR(50) NOT NULL UNIQUE,
