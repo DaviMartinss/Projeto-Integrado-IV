@@ -1,12 +1,42 @@
 import { database } from "./config/BD/db.js"
 
 class UserRepository{
+
+  //cadastra um usuário
+  async insertUser(user){
+
+    try {
+
+      const db = await database.connect();
+      console.log("user: "+user);
+      if(db != undefined)
+      {
+        const sql = 'INSERT INTO "User" ("NickName", "Email", "PassWord", "Avatar") VALUES ($1,$2,$3, $4);';
+        const values = [user.NickName, user.Email, user.Password, user.Avatar];
+        await db.query(sql, values);
+        db.release();
+        return true;
+      }
+      else
+      {
+        //console.log("ERRO NA CONEXÃO COM POSTGREESQL");
+        return false;
+      }
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
+
+
     async getUserList() {
 
         try {
-    
+
           const db = await database.connect();
-    
+
           if(db != undefined )
           {
             const sql = 'select * from "User";';
@@ -19,13 +49,41 @@ class UserRepository{
             console.log("ERRO NA CONEXÃO COM POSTGREESQL");
             return undefined;
           }
-    
+
         } catch (e) {
-    
+
           console.log(e);
           return undefined;
         }
       }
+
+      //pega o usuário pelo o email
+    async getUserByEmail(email) {
+
+      try {
+
+        const db = await database.connect();
+
+        if(db != undefined )
+        {
+          const sql = 'SELECT * FROM "User" WHERE "Email"=$1;';
+          const res = await db.query(sql,[email]);
+          db.release();
+          return res.rows[0];
+        }
+        else
+        {
+          console.log("ERRO NA CONEXÃO COM POSTGREESQL");
+          return undefined;
+        }
+
+      } catch (e) {
+
+        console.log(e);
+        return undefined;
+      }
+    }
+
 }
 
 export const userRepository = new UserRepository();
