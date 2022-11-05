@@ -115,7 +115,7 @@ class QuestRepository{
       return false;
     }
   }
-}
+
 
   //retorna uma Questao
   async GetQuestById(questId){

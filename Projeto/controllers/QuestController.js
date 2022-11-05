@@ -58,10 +58,56 @@ class QuestController {
         return false;
 
     }catch(e){
-
       console.log(e);
       return false;
     }
   }
 
+  //PEGA UMA LISTA DE Questões POR MEIO DA VALIDAÇÃO
+  async GetQuestByValidate(validade) {
+
+    try{
+
+      var questList = await questRepository.GetQuestByValidate(validade);
+
+      if(!!questList.length)
+      {
+        return questList;
+      }
+      else {
+        console.log("NENHUMA QUESTÃO ENCONTRADA!");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
+  async GetQuestById(questId) {
+
+    try{
+
+      var quest = await questRepository.GetQuestById(questId);
+
+      if(quest != undefined)
+      {
+        return quest;
+      }
+      else {
+        console.log("NENHUMA QUESTÃO ENCONTRADA!");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
 }
+
+export const questController = new QuestController();
