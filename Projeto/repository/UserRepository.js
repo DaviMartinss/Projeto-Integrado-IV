@@ -84,6 +84,62 @@ class UserRepository{
       }
     }
 
+    //update do usuário
+   async updateUser(user){
+
+     try {
+
+       const db = await database.connect();
+
+       if(db != undefined)
+       {
+         const sql = 'UPDATE "User" SET "NickName"=$1, "Email"=$2, "PassWord"=$3 WHERE "UserId"=$4';
+         const values = [user.NickName, user.Email, user.Password, user.UserId];
+         await db.query(sql, values);
+         db.release();
+         return true;
+       }
+       else
+       {
+         console.log("ERRO NA CONEXÃO COM POSTGREESQL");
+         return false;
+       }
+
+     } catch (ex) {
+
+       console.log(ex);
+       return false;
+     }
+  }
+
+  //deleta usuário
+  async deleteUser(userId){
+
+    try {
+
+      const db = await database.connect();
+
+      if(db != undefined)
+      {
+        const sql = 'DELETE FROM "User" WHERE "UserId"=$1';
+        const values = [userId];
+        await db.query(sql, values);
+        db.release();
+        return true;
+      }
+      else
+      {
+        console.log("ERRO NA CONEXÃO COM POSTGREESQL");
+        return false;
+      }
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
+
 }
 
 export const userRepository = new UserRepository();

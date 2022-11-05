@@ -80,6 +80,50 @@ class UserController {
     }
   }
 
+  //ATUALIZA O USUARIO
+  async UpdateUser(userData) {
+
+    try{
+
+      userData.Password = cipher.encrypt(userData.Password); //criptografia aes256
+
+      //verifica se o update ocorreu com sucesso!
+    	var updateUser;
+
+    	updateUser = await userRepository.updateUser(userData);
+
+    	if(updateUser)
+        return true;
+    	else
+        return false;
+
+    }catch(e){
+
+      console.log(e);
+      return false;
+    }
+  }
+
+  //DELETA O USUARIO
+  async DeleteUser(userId) {
+
+    try{
+
+      //verifica se o delete ocorreu com sucesso!
+      var deleteUser = await userRepository.deleteUser(userId);
+
+      if(deleteUser)
+        return true;
+      else
+        return false;
+
+    }catch(e){
+
+      console.log(e);
+      return false;
+    }
+  }
+
 }
 
 export const userController = new UserController();

@@ -92,7 +92,7 @@ class QuestRepository{
   }
 
   //deleta Questao
-  async DeleteQuestById(questId){
+  async DeleteQuest(questId){
 
     try {
 
