@@ -116,7 +116,7 @@ class ValidateRepository{
 
 
   //retorna um validate
-  async GetScoreById(validateId){
+  async GetValidateById(validateId){
 
     try {
 
@@ -140,7 +140,7 @@ class ValidateRepository{
   }
 
   //retorna uma lista com todos os validates
-  async GetScoreList(){
+  async GetValidateList(){
 
     try {
 
