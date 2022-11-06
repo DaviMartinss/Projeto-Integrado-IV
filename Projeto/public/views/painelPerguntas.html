@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Show do Milhão</title>
+
+  <!-- Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers" />
+  <meta name="author" content="Xiaoying Riley at 3rd Wave Media" />
+  <link rel="shortcut icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css"
+    integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
+    integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+  <!-- FontAwesome JS-->
+  <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+  <script src="../scripts/cartaoCredito.js"></script>
+  <!-- App CSS -->
+  <link id="theme-style" rel="stylesheet" href="assets/css/portal.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+</head>
+
+<body class="app">
+  <div>
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+      <div class="container-xl">
+        <div class="row g-3 mb-4 align-items-center justify-content-between">
+          <div class="col-auto">
+            <h1 class="app-page-title mb-0">Perguntas</h1>
+          </div>
+          <div class="col-auto">
+            <div class="page-utilities">
+              <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+
+                <div class="col-auto">
+                  <a class="btn app-btn-secondary" href="cadastrarPergunta.html">
+                    Nova Pergunta
+                  </a>
+                </div>
+
+                <div class="col-auto">
+                  <a class="btn app-btn-secondary" href="menu.html">
+                    Voltar
+                  </a>
+                </div>
+
+              </div>
+              <!--//row-->
+            </div>
+            <!--//table-utilities-->
+          </div>
+          <!--//col-auto-->
+        </div>
+        <!--//row-->
+
+        <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+          <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab"
+            href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Todos as Perguntas</a>
+        </nav>
+
+        <div class="tab-content" id="orders-table-tab-content">
+          <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+              <div class="app-card-body">
+                <div class="table-responsive">
+                  <table class="table app-table-hover mb-0 text-left">
+                    <thead>
+                      <tr>
+                        <th class="cell">Questões</th>
+                        <th class="cell">Resposta Correta</th>
+                        <th class="cell">Resposta Incorreta 01</th>
+                        <th class="cell">Resposta Incorreta 02</th>
+                        <th class="cell">Resposta Incorreta 03</th>
+                        <th class="cell">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <tr>
+                        <td class="cell">Quanto é 2 * 5?</td>
+                        <td class="cell">10</td>
+                        <td class="cell">5</td>
+                        <td class="cell">2</td>
+                        <td class="cell">3</td>
+                        <td class="cell">
+                          <a class="btn-sm app-btn-secondary"
+                            href="atualizaCartaoC?CartaoCreditoId=@cartao.CartaoCreditoId">Editar</a>
+
+                          <button type="button" class="btn-sm app-btn-secondary" onClick="confirm()">
+                            Deletar
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--//table-responsive-->
+              </div>
+              <!--//app-card-body-->
+            </div>
+          </div>
+          <!--//tab-pane-->
+        </div>
+        <!--//tab-content-->
+      </div>
+      <!--//container-fluid-->
+    </div>
+    <!--//app-content-->
+  </div>
+  <!--//app-wrapper-->
+
+  <!-- Javascript -->
+  <script src="assets/plugins/popper.min.js"></script>
+  <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Page Specific JS -->
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html>
