@@ -36,7 +36,7 @@
                      
                   <div class="auth-form-container text-left">
                      <img src="./assets/images/background/sobre.jpg" alt="Tabela de funcionamento do jogo" style="width: 439.73px;">
-                     <div class="auth-option text-center pt-5"><a class="app-link" href="login.html" >Login</a> <span class="px-2">|</span> <a class="app-link" href="signup.html" >Cadastre-se</a></div>
+                     <div class="auth-option text-center pt-5"><a class="app-link" href="/" >Login</a> <span class="px-2">|</span> <a class="app-link" href="signup" >Cadastre-se</a></div>
                   </div>
                   <!--//auth-form-container-->
                </div>

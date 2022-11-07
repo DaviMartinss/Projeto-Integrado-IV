@@ -109,10 +109,29 @@ server.post("/GenerateUser",  async(req, res) => {
 
 });
 
+server.get("/EditAccount", (req, res) => {
+	res.render("editarUser");
+});
+
+// ========================== ROTAS CRUD Perguntas ========================================================
+server.get("/ManageQuest", (req, res) => {
+	res.render("painelPerguntas");
+});
+
+server.get("/GeneratePergunta", (req, res) => {
+	res.render("cadastrarPergunta");
+});
 
 
+// ========================== ROTAS Jogo ========================================================
+server.get("/Game", (req, res) => {
+	res.render("jogo");
+});
 
-
+// ========================== ROTAS CRUD Information ========================================================
+server.get("/About", (req, res) => {
+	res.render("sobre");
+});
 
 
 

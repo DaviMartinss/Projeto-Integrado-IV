@@ -25,19 +25,19 @@
                   <div class="auth-form-container text-start mx-auto">
                      
                      <div class="text-center" style="margin-bottom: 10px;">
-                        <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="editarPergunta.html">
+                        <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="Game">
                           Jogar
                         </a>
                      </div>
 
                      <div class="text-center" style="margin-bottom: 10px;">
-                           <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="editarUser.html">
+                           <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="EditAccount">
                              Editar Conta
                            </a>
                      </div>
                     
                      <div class="text-center" style="margin-bottom: 10px;">
-                        <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="painelPerguntas.html">
+                        <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="ManageQuest">
                           Painel de Perguntas
                         </a>
                      </div> 
@@ -55,7 +55,7 @@
                 </div>
 
             <div class="text-center">
-               <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="editarPergunta.html">
+               <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="About">
                  Sobre o Jogo
                </a>
             </div>
