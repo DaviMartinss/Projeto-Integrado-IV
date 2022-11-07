@@ -20,7 +20,7 @@ class UserController {
       var getUserList = await userRepository.getUserList();
 
     	getUserList.forEach( userLista => {
-    		if(userData.Email == userLista.Email && userData.Password == cipher.decrypt(userLista.PassWord))
+    		if(userData.Email == userLista.UserName && userData.Password == cipher.decrypt(userLista.Password))
     			 user = userLista;
 
     	});

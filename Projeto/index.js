@@ -33,6 +33,7 @@ server.use(express.json()) //habilita o uso de JSONS
 server.use(express.urlencoded({ extended: true })); //habilita o uso do post dentro das rotas
 server.use(express.static(path.join(__dirname + "/public"))); //habilita o uso de arquivos estaticos
 server.set("views", path.join(__dirname + "/public/views")); //define a pasta de views
+server.set("view engine","vash");
 //#endregion
 
 
@@ -68,9 +69,9 @@ server.get('/home', async (req, res) => {
 
 	if(user != undefined)
 	{
-		var home = await homeController.GetInfosHome(user);
+		//var home = await homeController.GetInfosHome(user);
 
-		res.render("home", { erroLogin: false, user, home});
+		res.render("home", { erroLogin: false, user});
 	}
 	else
 	{

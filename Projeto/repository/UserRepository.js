@@ -11,7 +11,7 @@ class UserRepository{
       console.log("user: "+user);
       if(db != undefined)
       {
-        const sql = 'INSERT INTO "User" ("NickName", "Email", "PassWord", "Avatar") VALUES ($1,$2,$3, $4);';
+        const sql = 'INSERT INTO "User" ("NickName", "UserName", "Password", "Avatar") VALUES ($1,$2,$3, $4);';
         const values = [user.NickName, user.Email, user.Password, user.Avatar];
         await db.query(sql, values);
         db.release();
@@ -66,7 +66,7 @@ class UserRepository{
 
         if(db != undefined )
         {
-          const sql = 'SELECT * FROM "User" WHERE "Email"=$1;';
+          const sql = 'SELECT * FROM "User" WHERE "UserName"=$1;';
           const res = await db.query(sql,[email]);
           db.release();
           return res.rows[0];
@@ -93,7 +93,7 @@ class UserRepository{
 
        if(db != undefined)
        {
-         const sql = 'UPDATE "User" SET "NickName"=$1, "Email"=$2, "PassWord"=$3 WHERE "UserId"=$4';
+         const sql = 'UPDATE "User" SET "NickName"=$1, "UserName"=$2, "Password"=$3 WHERE "UserId"=$4';
          const values = [user.NickName, user.Email, user.Password, user.UserId];
          await db.query(sql, values);
          db.release();
