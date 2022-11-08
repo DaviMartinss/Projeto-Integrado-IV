@@ -6,7 +6,7 @@ class QuestRepository{
   async InsertQuest(quest){
 
     try {
-
+      
       const db = await database.connect();
 
       if(db != undefined)

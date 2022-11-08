@@ -7,6 +7,7 @@ import aes256 from "aes256";
 //Controlers IMPORTS
 //#region Controllers
 import { userController } from "./controllers/UserController.js";
+import { questController } from "./controllers/QuestController.js";
 //#endregion
 
 //Configurações Globais da Aplicação
@@ -122,6 +123,24 @@ server.get("/GeneratePergunta", (req, res) => {
 	res.render("cadastrarPergunta");
 });
 
+server.post("/GeneratePergunta",  async(req, res) => {
+
+	var perguntaData = req.body
+	console.log(perguntaData);
+
+	//verifica se o insert ocorreu com sucesso!
+	var insertPergunta = await questController.GenerateQuest(perguntaData);
+	
+	if(insertPergunta)
+	{
+		res.render("painelPerguntas");
+	}
+	else
+	{
+		res.render("cadastrarPergunta", {user, erroTEXT:'Erro no cadastro!'});
+	}
+
+});
 
 // ========================== ROTAS Jogo ========================================================
 server.get("/Game", (req, res) => {
