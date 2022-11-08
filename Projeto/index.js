@@ -115,8 +115,11 @@ server.get("/EditAccount", (req, res) => {
 });
 
 // ========================== ROTAS CRUD Perguntas ========================================================
-server.get("/ManageQuest", (req, res) => {
-	res.render("painelPerguntas");
+server.get("/ManageQuest", async (req, res) => {
+	
+	var listPergunta = await questController.GetQuests();
+
+	res.render("painelPerguntas", { listPergunta});
 });
 
 server.get("/GeneratePergunta", (req, res) => {

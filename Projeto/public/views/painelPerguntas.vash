@@ -79,6 +79,8 @@
                     <thead>
                       <tr>
                         <th class="cell">Questões</th>
+                        <th class="cell">Topico</th>
+                        <th class="cell">Dificuldade</th>
                         <th class="cell">Resposta Correta</th>
                         <th class="cell">Resposta Incorreta 01</th>
                         <th class="cell">Resposta Incorreta 02</th>
@@ -87,13 +89,18 @@
                       </tr>
                     </thead>
                     <tbody>
-
-                      <tr>
-                        <td class="cell">Quanto é 2 * 5?</td>
-                        <td class="cell">10</td>
-                        <td class="cell">5</td>
-                        <td class="cell">2</td>
-                        <td class="cell">3</td>
+                      @{
+                        if(model.listPergunta != undefined){
+                          
+                          model.listPergunta.forEach(pergunta => {
+                            <tr>
+                        <td class="cell">@pergunta.Pergunta</td>
+                        <td class="cell">@pergunta.TopicoQuestao</td>
+                        <td class="cell">@pergunta.NivelDificuldade</td>
+                        <td class="cell">@pergunta.RespostaCorreta</td>
+                        <td class="cell">@pergunta.ItemA</td>
+                        <td class="cell">@pergunta.ItemB</td>
+                        <td class="cell">@pergunta.ItemC</td>
                         <td class="cell">
                           <a class="btn-sm app-btn-secondary"
                             href="">Editar</a>
@@ -103,6 +110,10 @@
                           </button>
                         </td>
                       </tr>
+                          });
+                        }
+                      }
+                      
                     </tbody>
                   </table>
                 </div>

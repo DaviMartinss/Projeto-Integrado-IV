@@ -116,6 +116,29 @@ class QuestRepository{
     }
   }
 
+  //Retorna todas as perguntas cadastradas
+  async GetQuests(){
+
+    try {
+
+      const db = await database.connect();
+
+      if(db != undefined)
+      {
+        const sql = 'SELECT * FROM "Questao"';
+        const res = await db.query(sql);
+        db.release();
+        return res.rows;
+      }
+      else
+        return false;
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
 
   //retorna uma Questao
   async GetQuestById(questId){

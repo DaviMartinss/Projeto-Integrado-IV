@@ -86,6 +86,29 @@ class QuestController {
     }
   }
 
+  async GetQuests() {
+
+    try{
+
+      var quest = await questRepository.GetQuests();
+
+      if(quest != undefined)
+      {
+        console.log(quest);
+        return quest;
+      }
+      else {
+        console.log("NENHUMA QUESTÃO CADASTRADA!");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
   async GetQuestById(questId) {
 
     try{
