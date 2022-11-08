@@ -117,6 +117,9 @@ server.get("/EditAccount", (req, res) => {
 	res.render("editarUser");
 });
 
+server.get("/changePassword", (req, res) => {
+	res.render("alterarSenha");
+});
 // ========================== ROTAS CRUD Perguntas ========================================================
 server.get("/ManageQuest", async (req, res) => {
 
