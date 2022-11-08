@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="col-auto">
-                  <a class="btn app-btn-secondary" href="menu.html">
+                  <a class="btn app-btn-secondary" href="/home">
                     Voltar
                   </a>
                 </div>
@@ -91,7 +91,7 @@
                     <tbody>
                       @{
                         if(model.listPergunta != undefined){
-                          
+
                           model.listPergunta.forEach(pergunta => {
                             <tr>
                         <td class="cell">@pergunta.Pergunta</td>
@@ -113,7 +113,7 @@
                           });
                         }
                       }
-                      
+
                     </tbody>
                   </table>
                 </div>

@@ -25,36 +25,155 @@
             <div class="app-auth-body mx-auto">
                <div class="auth-form-container text-start mx-auto">
                   <form class="auth-form auth-signup-form" method="post">
-                     <textarea name="pergunta" id="pergunta" cols="51" rows="3"
-                        style="background-color: rgb(149, 145, 145);" readonly>
-                     Qual o seu nome?
-                  </textarea>
+
+                    @{
+                      if(model.quest != undefined){
+
+                          let list = [1,2,3,4]
+
+                          for (let i = list.length; i;) {
+                              randomNumber = Math.random() * i-- | 0;
+                              tmp = list[randomNumber];
+                              // troca o número aleatório pelo atual
+                              list[randomNumber] = list[i];
+                              // troca o atual pelo aleatório
+                              list[i] = tmp;
+                          }
+
+                          <textarea name="pergunta" id="pergunta" cols="51" rows="3"
+                             style="background-color: rgb(149, 145, 145);" readonly>
+                             @model.quest.Pergunta
+                          </textarea>
+
                      <div class="auth-form-container text-start mx-auto">
 
-                        <div class="text-center">
-                           <button type="submit" class="btn theme-btn mx-auto"
-                              style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">Opção
-                              1</button>
-                        </div>
+                       @switch(list[0])
+                       {
+                         case 1:
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 model.quest.RespostaCorreta
+                               </button>
+                           </div>
 
-                        <div class="text-center">
-                           <button type="submit" class="btn theme-btn mx-auto"
-                              style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">Opção
-                              2</button>
-                        </div>
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemA
+                               </button>
+                           </div>
 
-                        <div class="text-center">
-                           <button type="submit" class="btn theme-btn mx-auto"
-                              style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">Opção
-                              3</button>
-                        </div>
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemB
+                               </button>
+                           </div>
 
-                        <div class="text-center">
-                           <button type="submit" class="btn theme-btn mx-auto"
-                              style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">Opção
-                              4</button>
-                        </div>
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.Itemc
+                               </button>
+                           </div>
+                           break;
+
+                         case 2:
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemA
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.RespostaCorreta
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemB
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemC
+                               </button>
+                           </div>
+                           break;
+
+                         case 3:
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemA
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemB
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.RespostaCorreta
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemC
+                               </button>
+                           </div>
+                           break;
+
+                         case 4:
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemA
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemB
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.ItemC
+                               </button>
+                           </div>
+
+                           <div class="text-center">
+                              <button type="submit" class="btn theme-btn mx-auto"
+                                 style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
+                                 @model.quest.RespostaCorreta
+                               </button>
+                           </div>
+                           break;
+
+                       }
+
                      </div>
+                   }
+                 }
                   </form>
                </div>
 

@@ -20,32 +20,43 @@
          <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
             <div class="d-flex flex-column align-content-end">
                <div>
-                  
+
                   <h2 class="auth-heading text-center mb-4">Sobre o Jogo</h2>
                   <p style="text-align:justify;">
-                     O Show do Milhão é um Jogo de perguntas e respostas onde o conteúdo é gerenciado pela comunidade de jogadores. O jogo permite aos usuários ampliação 
-                     e teste dos seus conhecimentos, de forma simples e divertida. O gerenciamento das perguntas pela comunidade mantém as questões atuais e corretas, 
-                     como ocorre em outros conteúdos geridos por comunidades com o Wikipédia. 
+                     O Show do Milhão é um Jogo de perguntas e respostas onde o conteúdo é gerenciado pela comunidade de jogadores. O jogo permite aos usuários ampliação
+                     e teste dos seus conhecimentos, de forma simples e divertida. O gerenciamento das perguntas pela comunidade mantém as questões atuais e corretas,
+                     como ocorre em outros conteúdos geridos por comunidades com o Wikipédia.
                   </p>
                  <p style="text-align:justify;">
                   O objetivo é conseguir o prêmio de 1 milhão de dólares. As perguntas são de múltipla escolha com quatro alternativas. Em cada pergunta, o jogador poderá:
-                   responder a pergunta; parar de responder; errar a resposta; pedir a eliminação de duas respostas erradas; ou denunciar a pergunta por enunciado, alternativas ou 
+                   responder a pergunta; parar de responder; errar a resposta; pedir a eliminação de duas respostas erradas; ou denunciar a pergunta por enunciado, alternativas ou
                    resposta incorreta. O jogador poderá pedir a eliminação de duas respostas erradas uma única vez. Se responder corretamente, o jogador passa para a próxima pergunta.
                     De acordo com a pergunta em que o jogador estiver, ele receberá um prêmio em dinheiro se o jogador responder corretamente, parar ou errar a resposta de acordo com a tabela:
                  </p>
-                     
+
                   <div class="auth-form-container text-left">
                      <img src="./assets/images/background/sobre.jpg" alt="Tabela de funcionamento do jogo" style="width: 439.73px;">
                      <div class="auth-option text-center pt-5"><a class="app-link" href="/" >Login</a> <span class="px-2">|</span> <a class="app-link" href="signup" >Cadastre-se</a></div>
                   </div>
+
+                  <div class="col-auto" style="padding:0.6rem">
+                     <a class="btn app-btn-secondary center" href="/home">
+                       Voltar
+                     </a>
+                   </div>
                   <!--//auth-form-container-->
                </div>
+
+
                <!--//auth-body-->
                <footer class="app-auth-footer">
                   <div class="container text-center py-3">
                      <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                      <small class="copyright"><i style="color: #fb866a;"></i><a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank"></a></small>
                   </div>
+
+
+
                </footer>
                <!--//app-auth-footer-->
             </div>

@@ -16,6 +16,9 @@ import { questController } from "./controllers/QuestController.js";
 //Variavel global responsável pela seção do usuário
 var user = undefined;
 
+//Variavel global responsável pela Lista de Perguntas do Jogo
+var questList = undefined;
+
 //Variavel de resgate do nome do avatar salvo no storage
 var avatarName = '';
 
@@ -116,8 +119,10 @@ server.get("/EditAccount", (req, res) => {
 
 // ========================== ROTAS CRUD Perguntas ========================================================
 server.get("/ManageQuest", async (req, res) => {
-	
+
 	var listPergunta = await questController.GetQuests();
+
+	//console.log(listPergunta);
 
 	res.render("painelPerguntas", { listPergunta});
 });
@@ -133,10 +138,10 @@ server.post("/GeneratePergunta",  async(req, res) => {
 
 	//verifica se o insert ocorreu com sucesso!
 	var insertPergunta = await questController.GenerateQuest(perguntaData);
-	
+
 	if(insertPergunta)
 	{
-		res.render("painelPerguntas");
+		res.redirect("/ManageQuest");
 	}
 	else
 	{
@@ -145,10 +150,32 @@ server.post("/GeneratePergunta",  async(req, res) => {
 
 });
 
+
+
 // ========================== ROTAS Jogo ========================================================
-server.get("/Game", (req, res) => {
-	res.render("jogo");
+
+server.get("/Game", async(req, res) => {
+
+	questList = await questController.GetQuestByValidate('Sim');
+
+	var questNumber = req.query.QuestNumber;
+	var quest = undefined;
+
+	if(questNumber == undefined)
+	{
+		quest = questList[0];
+		res.render("jogo", {quest});
+	}
+	else
+	{
+		quest = questList[questNumber++];
+		res.render("jogo", {quest});
+	}
+
 });
+
+
+
 
 // ========================== ROTAS CRUD Information ========================================================
 server.get("/About", (req, res) => {
