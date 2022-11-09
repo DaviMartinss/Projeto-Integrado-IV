@@ -120,6 +120,63 @@ server.get("/EditAccount", (req, res) => {
 server.get("/changePassword", (req, res) => {
 	res.render("alterarSenha");
 });
+
+
+server.post("/UpdateUser", async (req, res) => {
+
+	var userData = req.body
+
+	console.log(userData.UserId);
+
+		userData = {
+			UserId:user.UserId,
+			NickName: req.body.NickName,
+			Email: req.body.Email
+	}
+
+	var updateUser = false;
+
+	var userEmailExists = await userController.GetUserByEmail(userData.Email);
+
+	if(userEmailExists == undefined)
+	{
+		updateUser = await userController.updateUserNickNameAndEmail(userData);
+	}
+	else {
+		//atualiza só o nome
+		
+		updateUser = await userController.updateUserNickName(userData);
+
+		//var userData = await userController.GetUserById(user.UserId);
+
+		//userData.PassWord = cipher.decrypt(user.PassWord);
+
+		//res.render("home", {userData, erroTEXT:'JÁ EXISTE USUÁRIO COM ESTE EMAIL CADASTRADO'});
+		//res.redirect('/home');
+		
+
+	}
+
+	if(updateUser)
+	{
+		
+		//user = await userController.GetUserById(user.UserId);
+
+		res.redirect('/home');
+		//deve redirecionar para página de informações do usuário
+		//console.log("USUÁRIO ATUALIZADO");
+	}
+	else
+	{
+		//var userData = await userController.GetUserById(user.UserId);
+
+		res.render("editarUser", {userData, erroTEXT:'ERRO NA ATUALIZAÇÃO DOS DADOS'});
+		//deve redirecionar para página de informações do usuário com o alerta ERRO
+		//console.log("ERRO NA ATUALIZAÇÃO");
+	}
+
+});
+
 // ========================== ROTAS CRUD Perguntas ========================================================
 server.get("/ManageQuest", async (req, res) => {
 

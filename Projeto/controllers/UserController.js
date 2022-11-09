@@ -5,8 +5,8 @@ import aes256 from "aes256";
 var key = 'bf3c199c2470cb477d907b1e0917c17b';
 var cipher = aes256.createCipher(key);
 //Ex:
-	//	cipher.encrypt("senha")
-	//	cipher.decrypt("senha");
+//	cipher.encrypt("senha")
+//	cipher.decrypt("senha");
 
 class UserController {
   constructor() {
@@ -15,18 +15,17 @@ class UserController {
   //pega USER PELO EMAIL E SENHA
   async GetUserByEmailAndSenha(userData) {
 
-    try{
+    try {
       var user = undefined;
       var getUserList = await userRepository.getUserList();
 
-    	getUserList.forEach( userLista => {
-    		if(userData.Email == userLista.UserName && userData.Password == cipher.decrypt(userLista.Password))
-    			 user = userLista;
+      getUserList.forEach(userLista => {
+        if (userData.Email == userLista.UserName && userData.Password == cipher.decrypt(userLista.Password))
+          user = userLista;
 
-    	});
+      });
 
-      if(user != undefined)
-      {
+      if (user != undefined) {
         return user;
       }
       else {
@@ -34,7 +33,7 @@ class UserController {
         return undefined;
       }
 
-    }catch(e){
+    } catch (e) {
 
       console.log(e);
       return undefined;
@@ -44,9 +43,9 @@ class UserController {
   //CADASTRA O USUARIO
   async GenerateUser(userData) {
 
-    try{
+    try {
       //verifica se as senhas são diferentes
-      if(userData.Password != userData.confirmePassword){
+      if (userData.Password != userData.confirmePassword) {
         console.log("AS senhas são diferentes");
         return false;
       }
@@ -59,21 +58,21 @@ class UserController {
       //verifica se o insert ocorreu com sucesso!
       var insertUser;
 
-      if(userExiste == undefined){
+      if (userExiste == undefined) {
 
         insertUser = await userRepository.insertUser(userData);
 
-        if(insertUser)
+        if (insertUser)
           return true;
         else
           return false;
 
-      }else{
+      } else {
         console.log("Email já foi cadastrado por outro usuário!");
         return false;
       }
 
-    }catch(e){
+    } catch (e) {
 
       console.log(e);
       return false;
@@ -83,21 +82,21 @@ class UserController {
   //ATUALIZA O USUARIO
   async UpdateUser(userData) {
 
-    try{
+    try {
 
       userData.Password = cipher.encrypt(userData.Password); //criptografia aes256
 
       //verifica se o update ocorreu com sucesso!
-    	var updateUser;
+      var updateUser;
 
-    	updateUser = await userRepository.updateUser(userData);
+      updateUser = await userRepository.updateUser(userData);
 
-    	if(updateUser)
+      if (updateUser)
         return true;
-    	else
+      else
         return false;
 
-    }catch(e){
+    } catch (e) {
 
       console.log(e);
       return false;
@@ -107,17 +106,81 @@ class UserController {
   //DELETA O USUARIO
   async DeleteUser(userId) {
 
-    try{
+    try {
 
       //verifica se o delete ocorreu com sucesso!
       var deleteUser = await userRepository.deleteUser(userId);
 
-      if(deleteUser)
+      if (deleteUser)
         return true;
       else
         return false;
 
-    }catch(e){
+    } catch (e) {
+
+      console.log(e);
+      return false;
+    }
+  }
+
+  async GetUserByEmail(email) {
+
+    try {
+
+      var user = await userRepository.getUserByEmail(email);
+
+      if (user != undefined) {
+        return user;
+      }
+      else {
+        console.log("NENHUM USUÁRIO COM EMAIL=" + email + " CADASTRADO!");
+        return undefined;
+      }
+
+    } catch (e) {
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
+  //atualiza apenas o nome do usuário
+  async updateUserNickName(userData) {
+
+    try {
+
+      //verifica se o update ocorreu com sucesso!
+      var updateUser;
+
+      updateUser = await userRepository.updateUserNickName(userData);
+
+      if (updateUser)
+        return true;
+      else
+        return false;
+
+    } catch (e) {
+
+      console.log(e);
+      return false;
+    }
+  }
+  //ATUALIZA O USUARIO
+  async updateUserNickNameAndEmail(userData) {
+
+    try {
+
+      //verifica se o update ocorreu com sucesso!
+      var updateUser;
+
+      updateUser = await userRepository.updateUserNickNameAndEmail(userData);
+
+      if (updateUser)
+        return true;
+      else
+        return false;
+
+    } catch (e) {
 
       console.log(e);
       return false;
