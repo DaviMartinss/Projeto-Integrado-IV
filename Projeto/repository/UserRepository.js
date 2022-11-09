@@ -180,6 +180,36 @@ class UserRepository {
       return false;
     }
   }
+
+  //Update senha
+async updatePassword(dados){
+
+  try {
+    console.log("nova senha = "+dados.newPassword);
+    console.log("UserId " +dados.userId)
+    
+    const db = await database.connect();
+
+    if(db != undefined)
+    {
+      const sql = 'UPDATE "User" SET "Password"=$1 WHERE "UserId"=$2';
+      const values = [dados.newPassword, dados.userId];
+      await db.query(sql, values);
+      db.release();
+      return true;
+    }
+    else
+    {
+      console.log("ERRO NA CONEXÃO COM POSTGREESQL");
+      return false;
+    }
+
+  } catch (ex) {
+
+    console.log(ex);
+    return false;
+  }
+}
 }
 
 export const userRepository = new UserRepository();

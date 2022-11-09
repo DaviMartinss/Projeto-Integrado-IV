@@ -14,6 +14,7 @@
       <!-- App CSS -->
       <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
       <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+      <script src="/scripts/user.js"></script>
    </head>
    <body class="app app-signup p-0">
       <div class="row g-0 app-auth-wrapper">
@@ -23,7 +24,7 @@
 
                   <h2 class="auth-heading text-center mb-4">Alterar Senha</h2>
                   <div class="auth-form-container text-start mx-auto">
-                     <form class="auth-form auth-signup-form" method="post">
+                     <form class="auth-form auth-signup-form" method="post" action="/changePassword" id="formPASS">
                         <div class="mb-3">
                            <label for="newPassword"><b>Nova Senha</b></label>
                            <input id="newPassword" name="newPassword" type="password" class="form-control newPassword" placeholder="Informe a Nova Senha" required="required">
@@ -34,7 +35,7 @@
                         </div>
 
                         <div class="text-center" style="margin-bottom: 10px;">
-                           <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto" >Alterar Senha</button>
+                           <button type="button" onclick="EqualsPassword()" class="btn app-btn-primary w-100 theme-btn mx-auto" >Alterar Senha</button>
                         </div>
 
                         <div class="text-center" style="margin-bottom: 10px;">

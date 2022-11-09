@@ -177,6 +177,23 @@ server.post("/UpdateUser", async (req, res) => {
 
 });
 
+server.post("/changePassword", async (req, res) => {
+
+	user = {userId: user.UserId, newPassword:req.body.Password };
+	var userChangePassword = await userController.UpdatePassword(user);
+
+	if(userChangePassword != undefined){
+
+		//sendMail.run(req.body.Password, userChangePassword.Email);
+		res.redirect("/");
+
+	}else{
+		console.log("Falha ao atualizar a senha");
+		//redefina para a pagina desejada
+	}
+});
+
+
 // ========================== ROTAS CRUD Perguntas ========================================================
 server.get("/ManageQuest", async (req, res) => {
 
@@ -193,8 +210,6 @@ server.get("/GeneratePergunta", (req, res) => {
 
 server.get("/validateQuestion", async (req, res) => {
 	var listPergunta = await questController.GetQuests();
-
-	//console.log(listPergunta);
 
 	res.render("validarPergunta", { listPergunta});
 });

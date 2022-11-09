@@ -187,6 +187,35 @@ class UserController {
     }
   }
 
+  //ATUALIZA A SENHA DO USUARIO
+  async UpdatePassword(dados) {
+
+    try{
+
+      console.log("Nova senha: "+dados.newPassword);
+      dados.newPassword = cipher.encrypt(dados.newPassword + '');
+
+      var userChangePassword = await userRepository.updatePassword(dados);
+
+    	if(userChangePassword){
+    		console.log("Atualizado a senha com sucesso!");
+
+    		//pegar os dados do usuário logado pelo o Id
+    		//const user = await userRepository.getUserById(dados.userId);
+        //return user;
+        return undefined;
+
+    	}else{
+    		console.log("Falha ao atualizar a senha");
+    		return undefined;
+    	}
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
 }
 
 export const userController = new UserController();
