@@ -19,6 +19,9 @@ var user = undefined;
 //Variavel global responsável pela Lista de Perguntas do Jogo
 var questList = undefined;
 
+//Variavel global responsável pelo número da Questão no Jogo
+var questNumber = undefined;
+
 //Variavel de resgate do nome do avatar salvo no storage
 var avatarName = '';
 
@@ -237,27 +240,81 @@ server.post("/GeneratePergunta",  async(req, res) => {
 
 // ========================== ROTAS Jogo ========================================================
 
+//Rota inicial para inicializar o jogo
 server.get("/Game", async(req, res) => {
 
-	questList = await questController.GetQuestByValidate('Sim');
-
-	var questNumber = req.query.QuestNumber;
 	var quest = undefined;
 
+	if(questList == undefined)
+	{
+		questList = await questController.GetQuestByValidate('Sim');
+	}
+
+ 	//Verificando se iniciou o jogo
 	if(questNumber == undefined)
 	{
 		quest = questList[0];
+		questNumber = 0;
 		res.render("jogo", {quest});
 	}
 	else
 	{
-		quest = questList[questNumber++];
-		res.render("jogo", {quest});
+			//É ESPERADO Q N ENTRE AQUI CASO JA TENHA COMEÇADO ALGUM JOGO
+			//POSSIVEL MSG DE ERRO
 	}
 
 });
 
+//AQUI VAI TRATAR DA VALIDAÇÃO DA RESPOSTA DO USUARIO RETORNANDO O ERRO E O ACERTO
+//FAZER MELHORIAS E ADD O RESTO DAS COISAS
+server.post("/Game", async(req, res) => {
 
+	var quest = undefined;
+
+		//questNumber = questNumber + 1;
+
+		//console.log(questNumber);
+
+	quest = {
+						Pergunta:questList[questNumber].Pergunta,
+						RespostaCorreta: questList[questNumber].RespostaCorreta,
+						ItemA: questList[questNumber].ItemA,
+						ItemB: questList[questNumber].ItemB,
+						ItemC: questList[questNumber].ItemC,
+						OrderQuest:parseInt(req.body.OrderQuest)
+					}
+
+		res.render("jogo", {quest});
+
+
+
+});
+
+
+//AQUI É RESPONSAVEL PELO CARREGAMENTO DA PROXIMA PERGUNTA / VERIFICAÇÃO DO FIM DE GAME
+server.get("/NextQuest", async(req, res) => {
+
+	var quest = undefined;
+
+	questNumber = questNumber + 1;
+
+	quest = questList[questNumber];
+
+	//Ver qual vai ser a quantidade de questoes do Jogo
+	//Aqui finaliza o jogo
+	if(questNumber != 7)
+	{
+		res.render("jogo", {quest});
+
+	}else
+	{
+		questNumber = undefined;
+		questList = undefined;
+
+		res.redirect("/home");
+	}
+
+});
 
 
 // ========================== ROTAS CRUD Information ========================================================

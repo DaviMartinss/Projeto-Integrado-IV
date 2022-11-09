@@ -24,12 +24,16 @@
          <div class="d-flex flex-column align-content-end">
             <div class="app-auth-body mx-auto">
                <div class="auth-form-container text-start mx-auto">
-                  <form class="auth-form auth-signup-form" method="post">
+                  <form class="auth-form auth-signup-form" method="post" action="/Game">
 
                     @{
                       if(model.quest != undefined){
 
-                          let list = [1,2,3,4]
+                        let list = undefined;
+
+                        if(model.quest.OrderQuest == undefined)
+                        {
+                          list = [1,2,3,4]
 
                           for (let i = list.length; i;) {
                               randomNumber = Math.random() * i-- | 0;
@@ -39,13 +43,20 @@
                               // troca o atual pelo aleatório
                               list[i] = tmp;
                           }
+                        }
+                        else
+                        {
+                          list = [model.quest.OrderQuest]
+                        }
 
                           <textarea name="pergunta" id="pergunta" cols="51" rows="3"
                              style="background-color: rgb(149, 145, 145);" readonly>
                              @model.quest.Pergunta
                           </textarea>
 
-                     <div class="auth-form-container text-start mx-auto">
+                        <div class="auth-form-container text-start mx-auto">
+
+                        <input type="number" name="OrderQuest" value="@list[0]" hidden/>
 
                        @switch(list[0])
                        {
@@ -53,7 +64,7 @@
                            <div class="text-center">
                               <button type="submit" class="btn theme-btn mx-auto"
                                  style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
-                                 model.quest.RespostaCorreta
+                                 @model.quest.RespostaCorreta
                                </button>
                            </div>
 
@@ -74,7 +85,7 @@
                            <div class="text-center">
                               <button type="submit" class="btn theme-btn mx-auto"
                                  style="background-color:  rgb(149, 145, 145); margin-bottom: 10px; width: 300px;">
-                                 @model.quest.Itemc
+                                 @model.quest.ItemC
                                </button>
                            </div>
                            break;
@@ -172,8 +183,16 @@
                        }
 
                      </div>
+
                    }
                  }
+
+                 <div class="col-auto">
+                    <a class="btn app-btn-secondary center" href="/NextQuest">
+                      Próxima Questão
+                    </a>
+                  </div>
+
                   </form>
                </div>
 
