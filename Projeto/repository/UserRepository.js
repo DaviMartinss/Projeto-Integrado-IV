@@ -28,6 +28,34 @@ class UserRepository {
     }
   }
 
+  // retorna o usuário logado
+
+  async getUserById(userId) {
+
+    try {
+
+      const db = await database.connect();
+
+      //console.log(userId);
+
+      if(db != undefined )
+      {
+        const sql = 'select * from "User" WHERE "UserId"=$1;';
+        const values = [userId]
+        const res = await db.query(sql,values);
+        db.release();
+        return res.rows[0];
+      }
+      else
+      {
+        return undefined;
+      }
+
+    } catch (e) {
+      console.log(e);
+      return undefined;
+    }
+}
 
   async getUserList() {
 
@@ -182,34 +210,32 @@ class UserRepository {
   }
 
   //Update senha
-async updatePassword(dados){
+  async updatePassword(dados) {
 
-  try {
-    console.log("nova senha = "+dados.newPassword);
-    console.log("UserId " +dados.userId)
-    
-    const db = await database.connect();
+    try {
+      console.log("nova senha = " + dados.newPassword);
+      console.log("UserId " + dados.userId)
 
-    if(db != undefined)
-    {
-      const sql = 'UPDATE "User" SET "Password"=$1 WHERE "UserId"=$2';
-      const values = [dados.newPassword, dados.userId];
-      await db.query(sql, values);
-      db.release();
-      return true;
-    }
-    else
-    {
-      console.log("ERRO NA CONEXÃO COM POSTGREESQL");
+      const db = await database.connect();
+
+      if (db != undefined) {
+        const sql = 'UPDATE "User" SET "Password"=$1 WHERE "UserId"=$2';
+        const values = [dados.newPassword, dados.userId];
+        await db.query(sql, values);
+        db.release();
+        return true;
+      }
+      else {
+        console.log("ERRO NA CONEXÃO COM POSTGREESQL");
+        return false;
+      }
+
+    } catch (ex) {
+
+      console.log(ex);
       return false;
     }
-
-  } catch (ex) {
-
-    console.log(ex);
-    return false;
   }
-}
 }
 
 export const userRepository = new UserRepository();

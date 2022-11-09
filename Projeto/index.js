@@ -182,7 +182,8 @@ server.post("/UpdateUser", async (req, res) => {
 
 server.post("/changePassword", async (req, res) => {
 
-	user = {userId: user.UserId, newPassword:req.body.Password };
+	user = {userId: user.UserId, newPassword:req.body.newPassword };
+
 	var userChangePassword = await userController.UpdatePassword(user);
 
 	if(userChangePassword != undefined){
