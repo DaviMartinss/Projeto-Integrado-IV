@@ -191,6 +191,14 @@ server.get("/GeneratePergunta", (req, res) => {
 	res.render("cadastrarPergunta");
 });
 
+server.get("/validateQuestion", async (req, res) => {
+	var listPergunta = await questController.GetQuests();
+
+	//console.log(listPergunta);
+
+	res.render("validarPergunta", { listPergunta});
+});
+
 server.post("/GeneratePergunta",  async(req, res) => {
 
 	var perguntaData = req.body

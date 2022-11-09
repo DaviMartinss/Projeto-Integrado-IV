@@ -38,27 +38,14 @@
       <div class="container-xl">
         <div class="row g-3 mb-4 align-items-center justify-content-between">
           <div class="col-auto">
-            <h1 class="app-page-title mb-0">Perguntas</h1>
+            <h1 class="app-page-title mb-0">Validar Perguntas</h1>
           </div>
           <div class="col-auto">
             <div class="page-utilities">
               <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                 <div class="col-auto">
-                  <a class="btn app-btn-secondary" href="GeneratePergunta">
-                    Nova Pergunta
-                  </a>
-                </div>
-
-
-                <div class="col-auto">
-                  <a class="btn app-btn-secondary" href="validateQuestion">
-                    Validar
-                  </a>
-                </div>
-
-                <div class="col-auto">
-                  <a class="btn app-btn-secondary" href="/home">
+                  <a class="btn app-btn-secondary" href="ManageQuest">
                     Voltar
                   </a>
                 </div>
@@ -74,7 +61,7 @@
 
         <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
           <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab"
-            href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Todos as Perguntas</a>
+            href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Todos as Perguntas a serem validadas</a>
         </nav>
 
         <div class="tab-content" id="orders-table-tab-content">
@@ -85,13 +72,7 @@
                   <table class="table app-table-hover mb-0 text-left">
                     <thead>
                       <tr>
-                        <th class="cell">Questões</th>
-                        <th class="cell">Topico</th>
-                        <th class="cell">Dificuldade</th>
-                        <th class="cell">Resposta Correta</th>
-                        <th class="cell">Resposta Incorreta 01</th>
-                        <th class="cell">Resposta Incorreta 02</th>
-                        <th class="cell">Resposta Incorreta 03</th>
+                        <th class="cell">Perguntas</th>
                         <th class="cell">Ações</th>
                       </tr>
                     </thead>
@@ -102,18 +83,9 @@
                           model.listPergunta.forEach(pergunta => {
                             <tr>
                         <td class="cell">@pergunta.Pergunta</td>
-                        <td class="cell">@pergunta.TopicoQuestao</td>
-                        <td class="cell">@pergunta.NivelDificuldade</td>
-                        <td class="cell">@pergunta.RespostaCorreta</td>
-                        <td class="cell">@pergunta.ItemA</td>
-                        <td class="cell">@pergunta.ItemB</td>
-                        <td class="cell">@pergunta.ItemC</td>
                         <td class="cell">
-                          <a class="btn-sm app-btn-secondary"
-                            href="">Editar</a>
-
                           <button type="button" class="btn-sm app-btn-secondary">
-                            Deletar
+                            Validar
                           </button>
                         </td>
                       </tr>
