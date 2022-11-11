@@ -50,6 +50,7 @@ class QuestRepository{
   //atualiza uma questão
   async UpdateQuest(quest){
 
+    console.log("teste ="+quest);
     try {
 
       const db = await database.connect();
@@ -151,6 +152,29 @@ class QuestRepository{
       {
         const sql = 'SELECT * FROM "Questao" WHERE "QuestaoId"=$1;';
         const res = await db.query(sql, [questId]);
+        db.release();
+        return res.rows[0];
+      }
+      else
+        return false;
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
+
+  async GetQuestaoByName(questName){
+
+    try {
+
+      const db = await database.connect();
+
+      if(db != undefined)
+      {
+        const sql = 'SELECT * FROM "Questao" WHERE "Pergunta"=$1;';
+        const res = await db.query(sql, [questName]);
         db.release();
         return res.rows[0];
       }

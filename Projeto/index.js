@@ -200,10 +200,7 @@ server.post("/changePassword", async (req, res) => {
 
 // ========================== ROTAS CRUD Perguntas ========================================================
 server.get("/ManageQuest", async (req, res) => {
-
 	var listPergunta = await questController.GetQuests();
-
-	//console.log(listPergunta);
 
 	res.render("painelPerguntas", { listPergunta});
 });
@@ -218,11 +215,50 @@ server.get("/validateQuestion", async (req, res) => {
 	res.render("validarPergunta", { listPergunta});
 });
 
+server.get("/EditQuestion", async (req, res) => {
+
+	console.log("PerguntaId = "+req.query.pergunta);
+
+	var pergunta = await questController.GetQuestById(req.query.pergunta);
+
+	res.render("editarPergunta", {pergunta, user});
+});
+
+server.post("/EditQuestion", async (req, res) => {
+
+	var questionData = req.body;
+			questionData = {
+			UserId: user.UserId,
+			Questao:req.body.Questao,
+			QuestaoId:req.query.questao
+		}
+	//verifica se a categoria já existe 
+	var questaoExiste = await questController.GetQuestaoByName(questionData.Questao);
+	//if(questaoExiste != undefined)
+	//	return false;
+		
+	//verifica se o insert ocorreu com sucesso!
+	var insertQuestao = await questController.UpdateQuest(questionData); //atualizando questão
+
+	if(insertQuestao)
+	{
+		res.redirect('/ManageQuest');
+		console.log("QUESTÃO ATUALIZADA");
+	}
+	else
+	{
+		var pergunta = await questController.GetQuestById(req.query.questao);
+		res.render("editarPergunta", {pergunta, user});
+
+		//deve redirecionar para a página de edição
+		console.log("QUESTÃO NÃO FOI ATUALIZADA");
+	}
+});
+
 server.post("/GeneratePergunta",  async(req, res) => {
 
 	var perguntaData = req.body
-	console.log(perguntaData);
-
+	
 	//verifica se o insert ocorreu com sucesso!
 	var insertPergunta = await questController.GenerateQuest(perguntaData);
 

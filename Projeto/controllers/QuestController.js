@@ -131,6 +131,27 @@ class QuestController {
     }
   }
 
+  async GetQuestaoByName(questName) {
+
+    try{
+
+      var quest = await questRepository.GetQuestaoByName(questName);
+
+      if(quest != undefined)
+      {
+        return quest;
+      }
+      else {
+        console.log("NENHUMA QUESTÃO ENCONTRADA!");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
 }
 
 export const questController = new QuestController();

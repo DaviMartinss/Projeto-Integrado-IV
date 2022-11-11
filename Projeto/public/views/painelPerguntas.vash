@@ -110,7 +110,7 @@
                         <td class="cell">@pergunta.ItemC</td>
                         <td class="cell">
                           <a class="btn-sm app-btn-secondary"
-                            href="">Editar</a>
+                            href="EditQuestion?pergunta=@pergunta.QuestaoId">Editar</a>
 
                           <button type="button" class="btn-sm app-btn-secondary">
                             Deletar
