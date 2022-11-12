@@ -147,7 +147,7 @@ server.post("/UpdateUser", async (req, res) => {
 	}
 	else {
 		//atualiza só o nome
-		
+
 		updateUser = await userController.updateUserNickName(userData);
 
 		//var userData = await userController.GetUserById(user.UserId);
@@ -156,13 +156,13 @@ server.post("/UpdateUser", async (req, res) => {
 
 		//res.render("home", {userData, erroTEXT:'JÁ EXISTE USUÁRIO COM ESTE EMAIL CADASTRADO'});
 		//res.redirect('/home');
-		
+
 
 	}
 
 	if(updateUser)
 	{
-		
+
 		//user = await userController.GetUserById(user.UserId);
 
 		res.redirect('/home');
@@ -283,7 +283,16 @@ server.get("/Game", async(req, res) => {
  	//Verificando se iniciou o jogo
 	if(questNumber == undefined)
 	{
-		quest = questList[0];
+		quest = {
+							Pergunta:questList[0].Pergunta,
+							RespostaCorreta: questList[0].RespostaCorreta,
+							ItemA: questList[0].ItemA,
+							ItemB: questList[0].ItemB,
+							ItemC: questList[0].ItemC,
+							Resposta:undefined,
+							OrderQuest:undefined
+						}
+
 		questNumber = 0;
 		res.render("jogo", {quest});
 	}
@@ -301,22 +310,19 @@ server.post("/Game", async(req, res) => {
 
 	var quest = undefined;
 
-		//questNumber = questNumber + 1;
-
-		//console.log(questNumber);
-
 	quest = {
 						Pergunta:questList[questNumber].Pergunta,
 						RespostaCorreta: questList[questNumber].RespostaCorreta,
 						ItemA: questList[questNumber].ItemA,
 						ItemB: questList[questNumber].ItemB,
 						ItemC: questList[questNumber].ItemC,
+						Resposta:req.body.Resposta,
 						OrderQuest:parseInt(req.body.OrderQuest)
 					}
 
+		//console.log(quest);
+
 		res.render("jogo", {quest});
-
-
 
 });
 
@@ -328,11 +334,22 @@ server.get("/NextQuest", async(req, res) => {
 
 	questNumber = questNumber + 1;
 
-	quest = questList[questNumber];
+	if(questList[questNumber] != undefined)
+	{
+		quest = {
+							Pergunta:questList[questNumber].Pergunta,
+							RespostaCorreta: questList[questNumber].RespostaCorreta,
+							ItemA: questList[questNumber].ItemA,
+							ItemB: questList[questNumber].ItemB,
+							ItemC: questList[questNumber].ItemC,
+							Resposta:undefined,
+							OrderQuest:undefined
+						}
+	}
 
 	//Ver qual vai ser a quantidade de questoes do Jogo
 	//Aqui finaliza o jogo
-	if(questNumber != 7)
+	if(questNumber != 7 && questList[questNumber] != undefined)
 	{
 		res.render("jogo", {quest});
 
