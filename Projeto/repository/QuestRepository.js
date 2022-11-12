@@ -92,7 +92,7 @@ class QuestRepository{
   }
 
   //deleta Questao
-  async DeleteQuest(questId){
+  async DeleteQuest(questionData){
 
     try {
 
@@ -101,7 +101,7 @@ class QuestRepository{
       if(db != undefined)
       {
         const sql = 'DELETE FROM "Questao" WHERE "QuestaoId"=$1';
-        const values = [questId];
+        const values = [questionData.QuestaoId];
         await db.query(sql, values);
         db.release();
         return true;

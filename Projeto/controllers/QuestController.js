@@ -45,12 +45,12 @@ class QuestController {
   }
 
   //DELETA A QUESTAO
-  async DeleteQuest(questId) {
+  async DeleteQuest(questionData) {
 
     try{
 
       //verifica se o delete ocorreu com sucesso!
-      var deleteQuest = await questRepository.DeleteQuest(questId);
+      var deleteQuest = await questRepository.DeleteQuest(questionData);
 
       if(deleteQuest)
         return true;

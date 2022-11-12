@@ -97,7 +97,6 @@ server.get("/signup", (req, res) => {
 
 //ROTA DE CADASTRO DO USUÁRIO
 server.post("/GenerateUser",  async(req, res) => {
-
 	var userData = req.body
 
 	userData.Avatar = "avatar/default.png";
@@ -117,9 +116,7 @@ server.post("/GenerateUser",  async(req, res) => {
 });
 
 server.get("/EditAccount", async (req, res) => {
-
 	var userData = await userController.GetUserById(user.UserId);
-
 	res.render("editarUser", {userData});
 });
 
@@ -132,10 +129,7 @@ server.get("/changePassword", async (req, res) => {
 });
 
 server.post("/UpdateUser", async (req, res) => {
-
 	var userData = req.body
-
-	console.log(userData.UserId);
 
 		userData = {
 			UserId:user.UserId,
@@ -203,6 +197,24 @@ server.post("/changePassword", async (req, res) => {
 	}
 });
 
+//ROTA DELETA O USUÁRIO
+server.get("/deleteUser", async (req, res) => {
+
+	if (req.body.UserId != undefined)
+		user = req.body
+
+	//verifica se o delete ocorreu com sucesso!
+	var deleteUser = await userController.DeleteUser(user.UserId);
+
+	if (deleteUser) {
+		//console.log("USUÁRIO DELETADO");
+		res.redirect("/");
+	}
+	else {
+		//deve redirecionar para página de informações do usuário com o alerta ERRO
+		console.log("ERRO AO DELETAR O USUÁRIO");
+	}
+});
 
 // ========================== ROTAS CRUD Perguntas ========================================================
 server.get("/ManageQuest", async (req, res) => {
@@ -270,6 +282,26 @@ server.post("/GeneratePergunta",  async(req, res) => {
 		res.render("cadastrarPergunta", {user, erroTEXT:'Erro no cadastro!'});
 	}
 
+});
+
+server.get("/deleteQuestion", async (req, res) => {
+
+	var questionData = req.query
+
+	if (questionData.UserId == undefined) {
+		questionData = {QuestaoId: req.query.QuestaoId }
+	}
+
+	//verifica se o update ocorreu com sucesso!
+	var deleteQuestion = await questController.DeleteQuest(questionData);
+
+	if (deleteQuestion) {
+		res.redirect("/ManageQuest")
+	}
+	else {
+		//deve redirecionar para o painel de questões com alerta de erro
+		console.log("QUESTÃO NÃO FOI DELETADA");
+	}
 });
 
 
