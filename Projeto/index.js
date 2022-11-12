@@ -13,6 +13,7 @@ import { questController } from "./controllers/QuestController.js";
 //Configurações Globais da Aplicação
 //#region Configurações
 import { sendMail, sendMailBemVindo } from "./microservice/Email/SendEmail.js";
+import { sendEmailController } from "./controllers/SendEmailController.js";
 
 //Variavel global responsável pela seção do usuário
 var user = undefined;
@@ -214,6 +215,43 @@ server.get("/deleteUser", async (req, res) => {
 	else {
 		//deve redirecionar para página de informações do usuário com o alerta ERRO
 		console.log("ERRO AO DELETAR O USUÁRIO");
+	}
+});
+
+//Recuperar senha
+server.get("/ResetPassword", async (req, res) => {
+	res.render("resetPassword");
+});
+
+server.post("/resetPassword", async(req, res) => {
+
+	var userExiste = await userController.GetUserByEmail(req.body.Email);
+
+	if(userExiste != undefined)
+	{
+		// gerando senha aleatória
+		var min = Math.ceil(10000000);
+		var max = Math.floor(99999999);
+		var novaSenha = Math.floor(Math.random() * (max - min + 1)) + min;
+		// fim da função
+
+		var dados = {newPassword: novaSenha, userId: userExiste.UserId}
+
+		var salvaSenha = await sendEmailController.SavePassword(dados);
+
+		if(salvaSenha){
+
+			var Novosdados = {newPassword: novaSenha, userId: userExiste.UserId}
+			userController.UpdatePassword(Novosdados);
+
+			sendMail.run(novaSenha, req.body.Email);
+			res.redirect('/');
+		}else{
+			console.log("Erro ao salvar nova senha");
+		}
+	}
+	else {
+		console.log("Email não foi cadastrado por um usuário no sistema!");
 	}
 });
 
