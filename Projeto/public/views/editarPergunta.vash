@@ -24,27 +24,44 @@
                   <h2 class="auth-heading text-center mb-4">Editar Pergunta</h2>
                   <div class="auth-form-container text-start mx-auto">
                      <form class="auth-form auth-signup-form" action="/EditQuestion?questao=@model.pergunta.QuestaoId" method="post">
+                        
+                         <div class="mb-3">
+                         <label for="TopicoQuestao"><b>Tópico:</b></label>
+                           <input id="TopicoQuestao" name="TopicoQuestao" type="text" class="form-control" placeholder="Informe o Tópico da Questão" value="@model.pergunta.TopicoQuestao" required="required">
+                        </div>
+
                         <div class="mb-3">
                            <label for="addPergunta"><b>Pergunta:</b></label>
-                           <input type="text" id="addPergunta" name="Questao" class="form-control addPergunta" value="@model.pergunta.Pergunta">
+                           <input type="text" id="addPergunta" name="Questao" class="form-control addPergunta" value="@model.pergunta.Pergunta" required="required">
                         </div>
+
+                        <div class="mb-3">
+                        <label for="nivelDificuldade"><b>Nível de Dificuldade:</b></label>
+                         <select name="NivelDificuldade" style="width: 359px;"  value="@model.pergunta.NivelDificuldade" required="required">
+                              <option value="0">Informe a dificuldade</option>
+                              <option value="1">Facil</option>
+                              <option value="2">Intermediaria</option>
+                              <option value="3">Dificil</option>
+                           </select>
+                        </div>
+
                         <div class="mb-3">
                            <label for="addRespostaTrue"><b>Resposta Correta:</b></label>
-                           <input id="addRespostaTrue" name="addRespostaTrue" type="text" class="form-control addRespostaTrue" value="@model.pergunta.RespostaCorreta">
+                           <input id="addRespostaTrue" name="RespostaCorreta" type="text" class="form-control addRespostaTrue" value="@model.pergunta.RespostaCorreta" required="required">
                         </div>
                         <div class="password mb-3">
                            <label for="addRespostaFalse1"><b>Resposta Incorreta 01:</b></label>
-                           <input id="addRespostaFalse1" name="addRespostaFalse1" type="text" class="form-control addRespostaFalse1" value="@model.pergunta.ItemA">
+                           <input id="addRespostaFalse1" name="ItemA" type="text" class="form-control addRespostaFalse1" value="@model.pergunta.ItemA" required="required">
                         </div>
 
                         <div class="mb-3">
                            <label for="addRespostaFalse2"><b>Resposta Incorreta 02:</b></label>
-                           <input id="addRespostaFalse2" name="addRespostaFalse2" type="text" class="form-control addRespostaFalse2" value="@model.pergunta.ItemB">
+                           <input id="addRespostaFalse2" name="ItemB" type="text" class="form-control addRespostaFalse2" value="@model.pergunta.ItemB" required="required">
                         </div>
                         
                         <div class="mb-3">
                            <label for="addRespostaFalse3"><b>Resposta Incorreta 03:</b></label>
-                           <input id="addRespostaFalse3" name="addRespostaFalse3" type="text" class="form-control addRespostaFalse3" value="@model.pergunta.ItemC">
+                           <input id="addRespostaFalse3" name="ItemC" type="text" class="form-control addRespostaFalse3" value="@model.pergunta.ItemC" required="required">
                         </div>
 
                         <div class="text-center">

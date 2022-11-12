@@ -50,7 +50,6 @@ class QuestRepository{
   //atualiza uma questão
   async UpdateQuest(quest){
 
-    console.log("teste ="+quest);
     try {
 
       const db = await database.connect();
@@ -68,13 +67,13 @@ class QuestRepository{
                      + '"Validacao"=$8'
                      + 'WHERE "QuestaoId"=$9';
 
-         const values = [quest.Pergunta,
-                         quest.RespostaCorreta,
-                         quest.ItemA,
-                         quest.ItemB,
-                         quest.ItemC,
-                         quest.NivelDificuldade,
-                         quest.TopicoQuestao,
+         const values = [quest.questionData.Questao,
+                         quest.questionData.RespostaCorreta,
+                         quest.questionData.ItemA,
+                         quest.questionData.ItemB,
+                         quest.questionData.ItemC,
+                         quest.questionData.NivelDificuldade,
+                         quest.questionData.TopicoQuestao,
                          quest.Validacao,
                          quest.QuestaoId];
 

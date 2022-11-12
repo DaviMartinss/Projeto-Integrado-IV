@@ -226,19 +226,12 @@ server.get("/EditQuestion", async (req, res) => {
 
 server.post("/EditQuestion", async (req, res) => {
 
-	var questionData = req.body;
-			questionData = {
-			UserId: user.UserId,
-			Questao:req.body.Questao,
-			QuestaoId:req.query.questao
-		}
-	//verifica se a categoria já existe 
-	var questaoExiste = await questController.GetQuestaoByName(questionData.Questao);
-	//if(questaoExiste != undefined)
-	//	return false;
+	
+	var question = {questionData: req.body, UserId: user.UserId, Validacao: 'Sim',
+	QuestaoId:req.query.questao} ;
 		
 	//verifica se o insert ocorreu com sucesso!
-	var insertQuestao = await questController.UpdateQuest(questionData); //atualizando questão
+	var insertQuestao = await questController.UpdateQuest(question); //atualizando questão
 
 	if(insertQuestao)
 	{
