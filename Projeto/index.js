@@ -12,6 +12,7 @@ import { questController } from "./controllers/QuestController.js";
 
 //Configurações Globais da Aplicação
 //#region Configurações
+import { sendMail, sendMailBemVindo } from "./microservice/Email/SendEmail.js";
 
 //Variavel global responsável pela seção do usuário
 var user = undefined;
@@ -105,7 +106,7 @@ server.post("/GenerateUser",  async(req, res) => {
 
 	if(insertUser)
 	{
-		//sendMailBemVindo.run(userData.NickName, userData.Email);
+		sendMailBemVindo.run(userData.NickName, userData.Email);
 		res.redirect("/");
 	}
 	else
