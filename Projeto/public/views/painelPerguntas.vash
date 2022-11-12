@@ -23,10 +23,9 @@
     integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
   <!-- FontAwesome JS-->
   <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
-  <script src="../scripts/cartaoCredito.js"></script>
+  <script src="/scripts/question.js"></script>
   <!-- App CSS -->
   <link id="theme-style" rel="stylesheet" href="assets/css/portal.css" />
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -112,7 +111,7 @@
                           <a class="btn-sm app-btn-secondary"
                             href="EditQuestion?pergunta=@pergunta.QuestaoId">Editar</a>
 
-                          <button type="button" class="btn-sm app-btn-secondary">
+                          <button type="button" class="btn-sm app-btn-secondary" onClick="confirm(@pergunta.QuestaoId)">
                             Deletar
                           </button>
                         </td>
