@@ -25,7 +25,18 @@
 <body>
    <div class="row g-0 app-auth-wrapper">
       <div class="col-12 auth-main-col text-center p-5"
-         style="background-image: url(assets/images/background/fundo.gif);">
+         style="background-image: url(assets/images/background/fundo.jpg);
+                background-size: cover;
+                background-repeat: no-repeat
+                position: absolute;
+                background-position: center;
+                bottom: 0;
+                top: 0;
+                right: 0;
+                left: 0;
+                padding: 3em;
+                overflow: auto;
+                ">
          <div class="d-flex flex-column align-content-end">
             <div class="app-auth-body mx-auto">
                <div class="auth-form-container text-start mx-auto">
