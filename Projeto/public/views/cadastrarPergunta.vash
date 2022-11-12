@@ -85,7 +85,7 @@
             <!--//flex-column-->
 
             <div class="col-auto">
-               <a class="btn app-btn-secondary" href="painelPerguntas.html">
+               <a class="btn app-btn-secondary" href="ManageQuest">
                  Voltar
                </a>
              </div>

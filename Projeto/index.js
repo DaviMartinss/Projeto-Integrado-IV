@@ -131,7 +131,6 @@ server.get("/changePassword", async (req, res) => {
 	res.render("alterarSenha", {userData});
 });
 
-
 server.post("/UpdateUser", async (req, res) => {
 
 	var userData = req.body

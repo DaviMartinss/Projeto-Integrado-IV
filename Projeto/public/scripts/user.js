@@ -18,9 +18,7 @@ function EqualsPassword()
   }
 }
 
-function confirm(userData){
-
-  let id = userData.UserId;
+function confirm(userId){
 
   Swal.fire({
     title: 'Você tem certeza que deseja deletar a sua conta?',
@@ -33,7 +31,7 @@ function confirm(userData){
     confirmButtonText: 'Sim, Apagar!',
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = `/deleteUser?UserId=${id}`;
+      window.location.href = `/deleteUser?UserId=${userId}`;
     }
   })
 }

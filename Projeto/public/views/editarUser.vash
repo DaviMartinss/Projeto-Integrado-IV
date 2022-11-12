@@ -9,11 +9,17 @@
       <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
       <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
       <link rel="shortcut icon" href="icone.jpg">
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
+		integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      
       <!-- FontAwesome JS-->
       <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
       <!-- App CSS -->
       <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
       <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+      <script src="/scripts/user.js"></script>
    </head>
    <body class="app app-signup p-0">
       <div class="row g-0 app-auth-wrapper">
@@ -32,7 +38,7 @@
                            <label for="editar-email"><b>Novo Email:</b></label>
                            <input id="editar-email" name="Email" type="email" class="form-control editar-email" placeholder="Novo Email" value="@model.userData.UserName" required="required">
                         </div>
-
+                        
                         <div class="text-center" style="margin-bottom: 10px;">
                            <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Salvar Alterações</button>
                         </div>
@@ -50,7 +56,7 @@
                      </div>
 
                      <div class="text-center" style="margin-bottom: 10px;">
-                        <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto" style="background-color: rgb(179, 23, 23);">Remover Conta</button>
+                        <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto" style="background-color: rgb(179, 23, 23);" onClick="confirm(@model.userData.UserId)">Remover Conta</button>
                      </div>
                      <!--//auth-form-->
 
