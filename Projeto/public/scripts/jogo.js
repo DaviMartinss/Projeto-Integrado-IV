@@ -20,9 +20,9 @@ function Error(item){
 
 function ErrorResponse(){
 
-  const itensCorrets = document.getElementsByClassName("ErrorResponse");
+  const itensErrors = document.getElementsByClassName("ErrorResponse");
 
-  Array.from(itensCorrets).forEach(Error);
+  Array.from(itensErrors).forEach(Error);
 }
 
 function Disable(item){
@@ -41,5 +41,26 @@ function ValidateQuests(){
   DisableButtons();
   AceptResponse();
   ErrorResponse();
+
+}
+
+function Ajudar(){
+
+  let ajuda = document.getElementById("Ajuda");
+
+  ajuda.value = 0;
+
+  const itensErrors = document.getElementsByClassName("ErrorResponse");
+
+  Array.from(itensErrors).forEach((item, count)=>
+  {
+    if(count == 2)
+      return;
+
+    item.style.backgroundColor = '#e30b21';
+    item.style.color = '#FFFFFF';
+    item.disabled = "true";
+
+  });
 
 }

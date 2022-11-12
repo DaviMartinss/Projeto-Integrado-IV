@@ -24,6 +24,9 @@ var questList = undefined;
 //Variavel global responsável pelo número da Questão no Jogo
 var questNumber = undefined;
 
+//Variavel global responsável pela ajuda do Jogo
+var ajuda = 1;
+
 //Variavel de resgate do nome do avatar salvo no storage
 var avatarName = '';
 
@@ -283,10 +286,10 @@ server.get("/EditQuestion", async (req, res) => {
 
 server.post("/EditQuestion", async (req, res) => {
 
-	
+
 	var question = {questionData: req.body, UserId: user.UserId, Validacao: 'Sim',
 	QuestaoId:req.query.questao} ;
-		
+
 	//verifica se o insert ocorreu com sucesso!
 	var insertQuestao = await questController.UpdateQuest(question); //atualizando questão
 
@@ -308,7 +311,7 @@ server.post("/EditQuestion", async (req, res) => {
 server.post("/GeneratePergunta",  async(req, res) => {
 
 	var perguntaData = req.body
-	
+
 	//verifica se o insert ocorreu com sucesso!
 	var insertPergunta = await questController.GenerateQuest(perguntaData);
 
@@ -367,8 +370,11 @@ server.get("/Game", async(req, res) => {
 							ItemB: questList[0].ItemB,
 							ItemC: questList[0].ItemC,
 							Resposta:undefined,
-							OrderQuest:undefined
+							OrderQuest:undefined,
+							Ajudar:ajuda
 						}
+
+		//console.log(quest);
 
 		questNumber = 0;
 		res.render("jogo", {quest});
@@ -394,8 +400,11 @@ server.post("/Game", async(req, res) => {
 						ItemB: questList[questNumber].ItemB,
 						ItemC: questList[questNumber].ItemC,
 						Resposta:req.body.Resposta,
-						OrderQuest:parseInt(req.body.OrderQuest)
+						OrderQuest:parseInt(req.body.OrderQuest),
+						Ajudar:parseInt(req.body.Ajudar)
 					}
+
+		ajuda = quest.Ajudar;
 
 		//console.log(quest);
 
@@ -420,7 +429,8 @@ server.get("/NextQuest", async(req, res) => {
 							ItemB: questList[questNumber].ItemB,
 							ItemC: questList[questNumber].ItemC,
 							Resposta:undefined,
-							OrderQuest:undefined
+							OrderQuest:undefined,
+							Ajudar:ajuda
 						}
 	}
 
@@ -434,6 +444,7 @@ server.get("/NextQuest", async(req, res) => {
 	{
 		questNumber = undefined;
 		questList = undefined;
+		ajuda = 1;
 
 		res.redirect("/home");
 	}

@@ -65,14 +65,19 @@
                           list = [model.quest.OrderQuest]
                         }
 
-                          <textarea name="pergunta" id="pergunta" cols="51" rows="3"
-                             style="background-color: rgb(149, 145, 145);" readonly>
-                             @model.quest.Pergunta
-                          </textarea>
+
+                          <textarea class="mx-auto" name="pergunta" id="pergunta" cols="40" rows="3"
+                             style="background-color: rgb(149, 145, 145);
+                             margin: 0 auto;
+                             text-align:left;"
+                          readonly>@model.quest.Pergunta</textarea>
+
 
                         <div class="auth-form-container text-start mx-auto">
 
                         <input type="number" name="OrderQuest" value="@list[0]" hidden/>
+
+                        <input id="Ajuda" type="number" name="Ajudar" value="1" hidden/>
 
                        @switch(list[0])
                        {
@@ -270,11 +275,24 @@
                    }
                  }
 
+                @if(model.quest.Ajudar && model.quest.Resposta == undefined)
+                {
                  <div class="col-auto">
-                    <a class="btn app-btn-secondary center" href="/NextQuest">
-                      Próxima Questão
+                    <a class="btn app-btn-secondary left" onclick="Ajudar()">
+                      Ajuda
                     </a>
                   </div>
+                }
+
+                @if(model.quest.Resposta != undefined)
+                {
+                  <div class="col-auto">
+                     <a class="btn app-btn-secondary center" href="/NextQuest">
+                       Próxima Questão
+                     </a>
+                  </div>
+                }
+
 
                   </form>
                </div>
