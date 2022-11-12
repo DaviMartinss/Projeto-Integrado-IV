@@ -25,6 +25,11 @@
                   <h2 class="auth-heading text-center mb-4">Alterar Senha</h2>
                   <div class="auth-form-container text-start mx-auto">
                      <form class="auth-form auth-signup-form" method="post" action="/changePassword" id="formPASS">
+                         <div class="mb-3">
+                           <label for=""><b>Senha Atual</b></label>
+                           <input id="currentPassword" name="currentPassword" type="text" class="form-control" value="@model.userData.Password" disabled>
+                        </div>
+
                         <div class="mb-3">
                            <label for="newPassword"><b>Nova Senha</b></label>
                            <input id="newPassword" name="newPassword" type="password" class="form-control newPassword" placeholder="Informe a Nova Senha" required="required">

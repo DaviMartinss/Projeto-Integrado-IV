@@ -26,11 +26,11 @@
                      <form class="auth-form auth-signup-form" method="post" action="/UpdateUser">
                         <div class="email mb-3">
                            <label for="aditar-nome"><b>Novo Nome de Usuário:</b></label>
-                           <input id="editar-name" name="NickName" type="text" class="form-control editar-name" placeholder="Novo Nome de Usuário" required="required">
+                           <input id="editar-name" name="NickName" type="text" class="form-control editar-name" placeholder="Novo Nome de Usuário" value="@model.userData.NickName" required="required">
                         </div>
                         <div class="email mb-3">
                            <label for="editar-email"><b>Novo Email:</b></label>
-                           <input id="editar-email" name="Email" type="email" class="form-control editar-email" placeholder="Novo Email" required="required">
+                           <input id="editar-email" name="Email" type="email" class="form-control editar-email" placeholder="Novo Email" value="@model.userData.UserName" required="required">
                         </div>
 
                         <div class="text-center" style="margin-bottom: 10px;">

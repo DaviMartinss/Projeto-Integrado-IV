@@ -116,12 +116,19 @@ server.post("/GenerateUser",  async(req, res) => {
 
 });
 
-server.get("/EditAccount", (req, res) => {
-	res.render("editarUser");
+server.get("/EditAccount", async (req, res) => {
+
+	var userData = await userController.GetUserById(user.UserId);
+
+	res.render("editarUser", {userData});
 });
 
-server.get("/changePassword", (req, res) => {
-	res.render("alterarSenha");
+server.get("/changePassword", async (req, res) => {
+	var userData = await userController.GetUserById(user.UserId);
+
+	userData.Password = cipher.decrypt(userData.Password);
+
+	res.render("alterarSenha", {userData});
 });
 
 

@@ -144,6 +144,28 @@ class UserController {
     }
   }
 
+  //Retorna o usuário pelo o Id
+  async GetUserById(userId) {
+
+    try {
+
+      var user = await userRepository.getUserById(userId);
+
+      if (user != undefined) {
+        return user;
+      }
+      else {
+       console.log("Erro, não foi possível encontrar o usuário");
+        return undefined;
+      }
+
+    } catch (e) {
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
   //atualiza apenas o nome do usuário
   async updateUserNickName(userData) {
 

@@ -36,8 +36,6 @@ class UserRepository {
 
       const db = await database.connect();
 
-      //console.log(userId);
-
       if(db != undefined )
       {
         const sql = 'select * from "User" WHERE "UserId"=$1;';
