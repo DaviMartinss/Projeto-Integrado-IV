@@ -96,7 +96,11 @@ server.get('/home', async (req, res) => {
 
 	if(user != undefined)
 	{
-		//var home = await homeController.GetInfosHome(user);
+
+		questNumber = undefined;
+		questList = undefined;
+		moneyTotal = undefined;
+		ajuda = 1;
 
 		res.render("home", { erroLogin: false, user});
 	}
@@ -427,12 +431,26 @@ server.post("/Game", async(req, res) => {
 		{
 			moneyTotal = listMoneyAcerts[questNumber];
 			statusGame = 1;
+
+			var winnerGame = await gameController.WinnerGame(user, moneyTotal, ajuda);
+
+			if(winnerGame == false)
+			{
+				console.log("ERRO AO GANHAR O GAME");
+			}
 		}
 
 		if(quest.RespostaCorreta != quest.Resposta)
 		{
 			moneyTotal = listMoneyErrors[questNumber];
 			statusGame = 3;
+
+			var errorGame = await gameController.ErrorGame(user, moneyTotal, ajuda);
+
+			if(errorGame == false)
+			{
+				console.log("ERRO AO ERRAR NO GAME");
+			}
 		}
 
 		//console.log(quest);
