@@ -17,7 +17,6 @@ function Error(item){
     item.style.color = '#FFFFFF';
 }
 
-
 function ErrorResponse(){
 
   const itensErrors = document.getElementsByClassName("ErrorResponse");
@@ -63,4 +62,60 @@ function Ajudar(){
 
   });
 
+}
+
+function Winner(total){
+  Swal.fire({
+    title: 'Você ganhou!',
+    width:'100%',
+    text: `Seu prêmio: R$ ${total}`,
+    //icon: 'warning',
+    backdrop:`
+              url(../imagens/chuvaMoney2.gif)
+              center
+              no-repeat`,
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: 'Voltar ao Menu',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = `/home`;
+    }
+  })
+}
+
+function StopGame(total){
+
+  Swal.fire({
+    title: 'Você tem certeza que deseja parar o Jogo?',
+    width:'100%',
+    text: `Seu prêmio: R$ ${total}`,
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, Parar!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = `/StopGame?Parar=${1}`;
+    }
+  })
+}
+
+function LoserGame(total){
+  Swal.fire({
+    title: 'Você tem certeza que deseja parar o Jogo?',
+    width:'100%',
+    text: `Seu prêmio: R$ ${total}`,
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, Parar!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = `/StopGame?Parar=${1}`;
+    }
+  })
 }

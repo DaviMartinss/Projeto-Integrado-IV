@@ -10,9 +10,12 @@
    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
    <link rel="shortcut icon" href="icone.jpg">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
-		integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css" integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js" integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
    <!-- FontAwesome JS-->
    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
    <!-- App CSS -->
@@ -274,34 +277,44 @@
 
                      </div>
 
+                     <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+
+                     <div class="col-auto">
+                        <a class="btn app-btn-secondary center" href="/StopGame?OrderQuest=@list[0]">
+                          Parar
+                        </a>
+                     </div>
+
+                     @if(model.quest.Ajudar && model.quest.Resposta == undefined)
+                     {
+                      <div class="col-auto">
+                         <a class="btn app-btn-secondary left" onclick="Ajudar()">
+                           Ajuda
+                         </a>
+                       </div>
+                     }
+
+                     @if(model.quest.Resposta != undefined)
+                     {
+                       <div class="col-auto">
+                          <a class="btn app-btn-secondary center" href="/NextQuest">
+                            Próxima Questão
+                          </a>
+                       </div>
+                     }
+
+                      <div class="col-auto">
+                          <button type="button" class="btn-sm app-btn-secondary" onClick="denunciar(@model.quest.QuestaoId)">
+                                 Denunciar
+                               </button>
+                       </div>
+                     </div>
+
                    }
                  }
 
-                 <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                @if(model.quest.Ajudar && model.quest.Resposta == undefined)
-                {
-                 <div class="col-auto">
-                    <a class="btn app-btn-secondary left" onclick="Ajudar()">
-                      Ajuda
-                    </a>
-                  </div>
-                }
 
-                @if(model.quest.Resposta != undefined)
-                {
-                  <div class="col-auto">
-                     <a class="btn app-btn-secondary center" href="/NextQuest">
-                       Próxima Questão
-                     </a>
-                  </div>
-                }
 
-                 <div class="col-auto">
-                     <button type="button" class="btn-sm app-btn-secondary" onClick="denunciar(@model.quest.QuestaoId)">
-                            Denunciar
-                          </button>
-                  </div>
-                </div>
                   </form>
                </div>
 
@@ -333,3 +346,22 @@
 }
 
 </html>
+
+@if(model.moneyTotal != undefined)
+{
+  @switch(model.statusGame)
+  {
+    case 1:
+      <script>alert('terminou game ganhou')</script>
+      break;
+
+    case 2:
+      <script>Winner(@model.moneyTotal)</script>
+      break;
+
+    case 3:
+      <script>alert('terminou game perdeu')</script>
+      break;
+  }
+
+}

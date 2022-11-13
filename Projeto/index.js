@@ -24,8 +24,20 @@ var questList = undefined;
 //Variavel global responsável pelo número da Questão no Jogo
 var questNumber = undefined;
 
-//Variavel global responsável pela ajuda do Jogo
+//Variavel global responsável pela ajuda do Jogo(flag booleana)
 var ajuda = 1;
+
+//Variavel global responsável pela contabilização dos acertos das Questoes do Jogo
+var moneyTotal = undefined;
+
+//Lista global responsável pela recompensas de acerto das Questoes do Jogo
+var listMoneyAcerts = [1000,5000,50000,100000,300000,500000,1000000];
+
+//Lista global responsável pela recompensas de erro da Questao do Jogo
+var listMoneyErrors = [0,500,2500,25000,50000,150000,0];
+
+//Lista global responsável pela recompensas de parada da Questao do Jogo
+var listMoneyStop = [0,1000,5000,50000,100000,300000,500000];
 
 //Variavel de resgate do nome do avatar salvo no storage
 var avatarName = '';
@@ -377,7 +389,7 @@ server.get("/Game", async(req, res) => {
 		//console.log(quest);
 
 		questNumber = 0;
-		res.render("jogo", {quest});
+		res.render("jogo", {quest, moneyTotal});
 	}
 	else
 	{
@@ -393,6 +405,8 @@ server.post("/Game", async(req, res) => {
 
 	var quest = undefined;
 
+	let statusGame = undefined;
+
 	quest = {
 						Pergunta:questList[questNumber].Pergunta,
 						RespostaCorreta: questList[questNumber].RespostaCorreta,
@@ -406,9 +420,21 @@ server.post("/Game", async(req, res) => {
 
 		ajuda = quest.Ajudar;
 
+		if(questNumber == 7 && quest.RespostaCorreta == quest.Resposta)
+		{
+			moneyTotal = listMoneyAcerts[questNumber];
+			statusGame = 1;
+		}
+
+		if(quest.RespostaCorreta != quest.Resposta)
+		{
+			moneyTotal = listMoneyErrors[questNumber];
+			statusGame = 3;
+		}
+
 		//console.log(quest);
 
-		res.render("jogo", {quest});
+		res.render("jogo", {quest, moneyTotal,statusGame});
 
 });
 
@@ -438,12 +464,13 @@ server.get("/NextQuest", async(req, res) => {
 	//Aqui finaliza o jogo
 	if(questNumber != 7 && questList[questNumber] != undefined)
 	{
-		res.render("jogo", {quest});
+		res.render("jogo", {quest, moneyTotal});
 
 	}else
 	{
 		questNumber = undefined;
 		questList = undefined;
+		moneyTotal = undefined;
 		ajuda = 1;
 
 		res.redirect("/home");
@@ -451,6 +478,41 @@ server.get("/NextQuest", async(req, res) => {
 
 });
 
+//Rota que para o jogo
+server.get("/StopGame", async(req, res) => {
+
+  	var quest = undefined;
+
+		//Finaliza o jogo caso o user realmente deseja parar o game
+		if(req.query.Parar)
+		{
+
+
+			
+			res.redirect("/home");
+		}
+		else
+		{
+			quest = {
+								Pergunta:questList[questNumber].Pergunta,
+								RespostaCorreta: questList[questNumber].RespostaCorreta,
+								ItemA: questList[questNumber].ItemA,
+								ItemB: questList[questNumber].ItemB,
+								ItemC: questList[questNumber].ItemC,
+								Resposta:undefined,
+								OrderQuest:parseInt(req.query.OrderQuest),
+								Ajudar:ajuda
+							}
+
+			moneyTotal = listMoneyStop[questNumber];
+
+			//console.log(moneyTotal);
+
+			let statusGame = 2;
+
+			res.render("jogo", {quest, moneyTotal, statusGame});
+		}
+});
 
 // ========================== ROTAS CRUD Information ========================================================
 server.get("/About", (req, res) => {
