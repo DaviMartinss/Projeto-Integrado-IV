@@ -15,7 +15,7 @@ class GameController {
 				status = {
 									NumPartidasJogada:1,
 									TotalPremio:moneyTotal,
-									NumAlternativasEliminadas:(ajuda == 1) ? 0 : 1,
+									NumAlternativasEliminadas:(ajuda == 1) ? 0 : 2,
 									NumDerrotasErro:0,
 									NumDerrotasParada:1,
 									NumContribuicao:0,
@@ -37,7 +37,7 @@ class GameController {
 				status = {
 									NumPartidasJogada: status.NumPartidasJogada + 1,
 									TotalPremio:status.TotalPremio + moneyTotal,
-									NumAlternativasEliminadas:status.NumAlternativasEliminadas + (ajuda == 1) ? 0 : 1,
+									NumAlternativasEliminadas:status.NumAlternativasEliminadas + (ajuda == 1) ? 0 : 2,
 									NumDerrotasErro:status.NumDerrotasErro,
 									NumDerrotasParada:status.NumDerrotasParada + 1,
 									NumContribuicao:0,
