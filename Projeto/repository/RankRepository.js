@@ -143,6 +143,30 @@ class RankRepository{
     }
   }
 
+  //retorna um rank pelo userId
+  async GetRankByUserId(userId){
+
+    try {
+
+      const db = await database.connect();
+
+      if(db != undefined)
+      {
+        const sql = 'SELECT * FROM "Ranking" WHERE "UserId"=$1;';
+        const res = await db.query(sql, [userId]);
+        db.release();
+        return res.rows[0];
+      }
+      else
+        return false;
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
+
 }
 
 export const rankRepository = new RankRepository();

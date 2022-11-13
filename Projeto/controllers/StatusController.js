@@ -62,6 +62,28 @@ class StatusController {
       return false;
     }
   }
+
+  async GetStatusByUserId(userId) {
+
+    try{
+
+      var status = await statusRepository.GetStatusByUserId(userId);
+
+      if(status != undefined)
+      {
+        return status;
+      }
+      else {
+        console.log("NENHUM STATUS ENCONTRADO!");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
 }
 
 

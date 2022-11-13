@@ -69,11 +69,7 @@ function Winner(total){
     title: 'Você ganhou!',
     width:'100%',
     text: `Seu prêmio: R$ ${total}`,
-    //icon: 'warning',
-    backdrop:`
-              url(../imagens/chuvaMoney2.gif)
-              center
-              no-repeat`,
+    icon: 'success',
     confirmButtonColor: '#3085d6',
     confirmButtonText: 'Voltar ao Menu',
   }).then((result) => {
@@ -104,18 +100,15 @@ function StopGame(total){
 
 function LoserGame(total){
   Swal.fire({
-    title: 'Você tem certeza que deseja parar o Jogo?',
+    title: 'Você perdeu!',
     width:'100%',
     text: `Seu prêmio: R$ ${total}`,
     icon: 'warning',
-    showCancelButton: true,
-    cancelButtonText: 'Cancelar',
     confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sim, Parar!',
+    confirmButtonText: 'Voltar ao Menu',
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = `/StopGame?Parar=${1}`;
+      window.location.href = `/home`;
     }
   })
 }

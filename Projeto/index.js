@@ -8,6 +8,9 @@ import aes256 from "aes256";
 //#region Controllers
 import { userController } from "./controllers/UserController.js";
 import { questController } from "./controllers/QuestController.js";
+import { statusController } from "./controllers/StatusController.js";
+import { rankController } from "./controllers/RankController.js";
+import { gameController } from "./controllers/GameController.js";
 //#endregion
 
 //Configurações Globais da Aplicação
@@ -461,19 +464,9 @@ server.get("/NextQuest", async(req, res) => {
 	}
 
 	//Ver qual vai ser a quantidade de questoes do Jogo
-	//Aqui finaliza o jogo
 	if(questNumber != 7 && questList[questNumber] != undefined)
 	{
 		res.render("jogo", {quest, moneyTotal});
-
-	}else
-	{
-		questNumber = undefined;
-		questList = undefined;
-		moneyTotal = undefined;
-		ajuda = 1;
-
-		res.redirect("/home");
 	}
 
 });
@@ -486,9 +479,20 @@ server.get("/StopGame", async(req, res) => {
 		//Finaliza o jogo caso o user realmente deseja parar o game
 		if(req.query.Parar)
 		{
+			var stopGame = await gameController.StopGame(user, moneyTotal, ajuda);
 
+		//console.log(new Date().toLocaleString());
 
-			
+			if(stopGame == false)
+			{
+				console.log("ERRO AO PARAR O GAME");
+			}
+
+			questNumber = undefined;
+			questList = undefined;
+			moneyTotal = undefined;
+			ajuda = 1;
+
 			res.redirect("/home");
 		}
 		else

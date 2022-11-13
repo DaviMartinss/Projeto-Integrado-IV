@@ -352,15 +352,15 @@
   @switch(model.statusGame)
   {
     case 1:
-      <script>alert('terminou game ganhou')</script>
-      break;
-
-    case 2:
       <script>Winner(@model.moneyTotal)</script>
       break;
 
+    case 2:
+      <script>StopGame(@model.moneyTotal)</script>
+      break;
+
     case 3:
-      <script>alert('terminou game perdeu')</script>
+      <script>LoserGame(@model.moneyTotal)</script>
       break;
   }
 

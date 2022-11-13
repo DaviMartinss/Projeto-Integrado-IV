@@ -63,7 +63,7 @@ class StatusRepository{
                      + '"NumDerrotasErro"=$4,'
                      + '"NumDerrotasParada"=$5,'
                      + '"NumContribuicao"=$6,'
-                     + '"NivelUsuario"=$7,'
+                     + '"NivelUsuario"=$7'
                      + 'WHERE "UserId"=$8';
 
        const values = [status.NumPartidasJogada,
@@ -138,6 +138,32 @@ class StatusRepository{
       return false;
     }
   }
+
+  //retorna um status pelo userId
+  async GetStatusByUserId(userId){
+
+    try {
+
+      const db = await database.connect();
+
+      if(db != undefined)
+      {
+        const sql = 'SELECT * FROM "Status" WHERE "UserId"=$1;';
+        const res = await db.query(sql, [userId]);
+        db.release();
+        return res.rows[0];
+      }
+      else
+        return false;
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
+
+
 }
 
 export const statusRepository = new StatusRepository();
