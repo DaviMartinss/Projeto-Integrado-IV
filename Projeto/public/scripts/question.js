@@ -14,3 +14,20 @@ function confirm(questaoId){
       }
     })
   }
+
+  function denunciar(questaoId){
+    Swal.fire({
+      title: 'Você tem certeza que deseja denunciar essa pergunta?',
+      text: "Você não poderá reverter isso!",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, Denunciar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = `/denunciarQuestion?QuestaoId=${questaoId}`;
+      }
+    })
+  }

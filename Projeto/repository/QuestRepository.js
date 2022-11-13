@@ -211,6 +211,30 @@ class QuestRepository{
     }
   }
 
+  // Retorna uma pergunta denunciada
+  async GetQuestaoDenunciadaByQuestaoId(questaoId) {
+
+    try {
+
+      const db = await database.connect();
+
+      if (db != undefined) {
+        const sql = 'SELECT "NumDenuncias" FROM "DenunciarValidar" WHERE "QuestaoId" = $1;';
+        const values = [questaoId]
+        const res = await db.query(sql, values);
+        db.release();
+        return res.rows[0];
+      }
+      else {
+        return undefined;
+      }
+
+    } catch (e) {
+      console.log(e);
+      return undefined;
+    }
+  }
+
 }
 
 export const questRepository = new QuestRepository();

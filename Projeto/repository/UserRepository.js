@@ -234,6 +234,29 @@ class UserRepository {
       return false;
     }
   }
+
+  async UserRandom(userId){
+
+    try {
+
+      const db = await database.connect();
+
+      if(db != undefined)
+      {
+        const sql = 'SELECT * FROM "User" WHERE "UserId" <> $1 ORDER BY RANDOM() LIMIT 5';
+        const res = await db.query(sql, [userId]);
+        db.release();
+        return res.rows;
+      }
+      else
+        return false;
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
 }
 
 export const userRepository = new UserRepository();

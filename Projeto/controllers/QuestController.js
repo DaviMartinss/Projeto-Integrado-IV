@@ -152,6 +152,27 @@ class QuestController {
       return undefined;
     }
   }
+  async GetQuestaoDenunciadaByQuestaoId(questaoId) {
+
+    try {
+
+      var count = await questRepository.GetQuestaoDenunciadaByQuestaoId(questaoId);
+
+      if (count != undefined) {
+        return count;
+      }
+      else {
+        console.log("Erro ao buscar Questão");
+        return undefined;
+      }
+
+    } catch (e) {
+
+      console.log(e);
+      return undefined;
+    }
+  }
+  
 }
 
 export const questController = new QuestController();
