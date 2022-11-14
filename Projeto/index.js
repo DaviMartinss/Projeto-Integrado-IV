@@ -536,6 +536,25 @@ server.get("/StopGame", async(req, res) => {
 		}
 });
 
+
+// ========================== ROTAS RANK ========================================================
+
+server.get('/Rank', async (req, res) => {
+
+	if(user != undefined)
+	{
+		var listRank = await rankController.GetRank();
+
+		res.render("HallFama", { listRank});
+	}
+	else
+	{
+		console.log("LOGUE NO SISTEMA PRIMEIRO");
+		res.redirect("/");
+	}
+
+});
+
 // ========================== ROTAS CRUD Information ========================================================
 server.get("/About", (req, res) => {
 	res.render("sobre");

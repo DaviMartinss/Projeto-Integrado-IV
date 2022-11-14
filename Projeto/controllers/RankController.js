@@ -64,6 +64,28 @@ class RankController {
     }
   }
 
+  async GetRank() {
+
+    try{
+
+      var rank = await rankRepository.GetRank();
+
+      if(rank != undefined)
+      {
+        return rank;
+      }
+      else {
+        console.log("NENHUM RANK ENCONTRADO!");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
 }
 
 export const rankController = new RankController();

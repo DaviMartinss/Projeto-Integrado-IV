@@ -128,7 +128,13 @@ class RankRepository{
 
       if(db != undefined)
       {
-        const sql = 'SELECT * FROM "Ranking";';
+        const sql = 'SELECT '
+                      +	'U."NickName", '
+                      +	'R."Score" '
+                    +'FROM '
+                      +	'public."Ranking" R '
+                      +	'INNER JOIN public."User" U ON R."UserId" = U."UserId" '
+                    +'ORDER BY R."Score" ASC;';
         const res = await db.query(sql);
         db.release();
         return res.rows;
