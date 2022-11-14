@@ -64,11 +64,11 @@ class QuestController {
   }
 
   //PEGA UMA LISTA DE Questões POR MEIO DA VALIDAÇÃO
-  async GetQuestByValidate(validade) {
+  async GetRandomQuestByValidate(validade) {
 
     try{
 
-      var questList = await questRepository.GetQuestByValidate(validade);
+      var questList = await questRepository.GetRandomQuestByValidate(validade);
 
       if(!!questList.length)
       {
@@ -172,7 +172,7 @@ class QuestController {
       return undefined;
     }
   }
-  
+
 }
 
 export const questController = new QuestController();

@@ -188,7 +188,7 @@ class QuestRepository{
   }
 
   //retorna uma lista de Questões pelo critério de validade
-  async GetQuestByValidate(validade){
+  async GetRandomQuestByValidate(validade){
 
     try {
 
@@ -196,7 +196,7 @@ class QuestRepository{
 
       if(db != undefined)
       {
-        const sql = 'SELECT * FROM "Questao" WHERE "Validacao"=$1;';
+        const sql = 'SELECT * FROM "Questao" WHERE "Validacao"=$1 ORDER BY RANDOM() LIMIT 7;';
         const res = await db.query(sql, [validade]);
         db.release();
         return res.rows;

@@ -2,6 +2,7 @@ function Acept(item){
 
     item.style.backgroundColor = '#32CD32';
     item.style.color = '#FFFFFF';
+    item.style.opacity = '1';
 }
 
 function AceptResponse(){
@@ -15,6 +16,7 @@ function Error(item){
 
     item.style.backgroundColor = '#e30b21';
     item.style.color = '#FFFFFF';
+    item.style.opacity = '1';
 }
 
 function ErrorResponse(){

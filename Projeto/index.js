@@ -376,7 +376,7 @@ server.get("/Game", async(req, res) => {
 
 	if(questList == undefined)
 	{
-		questList = await questController.GetQuestByValidate('Sim');
+		questList = await questController.GetRandomQuestByValidate('Sim');
 	}
 
  	//Verificando se iniciou o jogo
