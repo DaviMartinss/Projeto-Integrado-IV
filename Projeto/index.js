@@ -17,6 +17,7 @@ import { gameController } from "./controllers/GameController.js";
 //#region Configurações
 import { sendMail, sendMailBemVindo } from "./microservice/Email/SendEmail.js";
 import { sendEmailController } from "./controllers/SendEmailController.js";
+import { validateController } from "./controllers/ValidateController.js";
 
 //Variavel global responsável pela seção do usuário
 var user = undefined;
@@ -382,16 +383,18 @@ server.get("/Game", async(req, res) => {
  	//Verificando se iniciou o jogo
 	if(questNumber == undefined)
 	{
-		quest = {
-							Pergunta:questList[0].Pergunta,
-							RespostaCorreta: questList[0].RespostaCorreta,
-							ItemA: questList[0].ItemA,
-							ItemB: questList[0].ItemB,
-							ItemC: questList[0].ItemC,
-							Resposta:undefined,
-							OrderQuest:undefined,
-							Ajudar:ajuda
-						}
+		quest =
+		 {
+			QuestaoId: questList[0].QuestaoId,
+			Pergunta:questList[0].Pergunta,
+			RespostaCorreta: questList[0].RespostaCorreta,
+			ItemA: questList[0].ItemA,
+			ItemB: questList[0].ItemB,
+			ItemC: questList[0].ItemC,
+			Resposta:undefined,
+			OrderQuest:undefined,
+			Ajudar:ajuda
+		}
 
 		//console.log(quest);
 
@@ -536,6 +539,60 @@ server.get("/StopGame", async(req, res) => {
 		}
 });
 
+//Denunciar
+server.get("/denunciarQuestion", async (req, res) => {
+	var questionData = req.query
+
+	if (questionData.UserId == undefined) {
+		questionData = {QuestaoId: req.query.QuestaoId }
+	}
+
+	var denuncia = await questController.GetQuestaoDenunciadaByQuestaoId(questionData.QuestaoId);
+
+	if(denuncia != undefined)
+	{
+		if(denuncia.NumDenuncias == 2)
+		{
+			//gerar 5 usuários aleatórios
+			var userRandom = await userController.UserRandom(user.UserId);
+	
+			var denunciaData = 
+			{
+				NumDenuncias: denuncia.NumDenuncias,
+				NumValidacao: 0,
+				UserName01: userRandom[0].NickName,
+				UserName02: userRandom[1].NickName,
+				UserName03: userRandom[2].NickName,
+				UserName04: userRandom[3].NickName,
+				UserName05: userRandom[4].NickName,
+				QuestaoId: questionData.QuestaoId
+			};
+	
+			var insertDenuncia = await validateController.GenerateValidate(denunciaData);
+			
+			if(insertDenuncia)
+			{
+				res.redirect("/NextQuest");
+			}
+			else
+			{
+				console.log("Erro");
+			}
+		
+		}
+	}
+	
+	var denunciaData = 
+		{
+			NumDenuncias: denuncia.NumDenuncias,//passar o cotador
+			NumValidacao: 0,
+			QuestaoId: questionData.QuestaoId
+		};
+	
+	var insertDenuncia = await validateController.GenerateCountValidate(denunciaData);
+
+	
+});
 
 // ========================== ROTAS RANK ========================================================
 

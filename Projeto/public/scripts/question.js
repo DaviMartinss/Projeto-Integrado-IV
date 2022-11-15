@@ -16,6 +16,7 @@ function confirm(questaoId){
   }
 
   function denunciar(questaoId){
+    console.log("Id na função = "+questaoId);
     Swal.fire({
       title: 'Você tem certeza que deseja denunciar essa pergunta?',
       text: "Você não poderá reverter isso!",

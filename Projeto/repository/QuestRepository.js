@@ -215,7 +215,6 @@ class QuestRepository{
   async GetQuestaoDenunciadaByQuestaoId(questaoId) {
 
     try {
-
       const db = await database.connect();
 
       if (db != undefined) {

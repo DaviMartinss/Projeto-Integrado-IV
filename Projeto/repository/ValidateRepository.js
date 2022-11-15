@@ -47,6 +47,41 @@ class ValidateRepository{
     }
   }
 
+  //Insert Count 
+  async GenerateCountValidate(validate){
+
+    try {
+
+      const db = await database.connect();
+
+      if(db != undefined)
+      {
+        const sql = 'INSERT INTO "DenunciarValidar" '
+                  + '('
+                    + '"NumDenuncias",'
+                    + '"NumValidacao",'
+                    + '"QuestaoId"'
+                  + ')'
+                  + ' VALUES ($1,$2,$3);';
+
+        const values = [validate.denunciaData.NumDenuncias,
+                        validate.denunciaData.NumValidacao,
+                        validate.denunciaData.QuestaoId];
+
+        await db.query(sql, values);
+        db.release();
+        return true;
+      }
+      else
+        return false;
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
+
   //atualiza um registro da denuncia
   async UpdateValidate(validate){
 

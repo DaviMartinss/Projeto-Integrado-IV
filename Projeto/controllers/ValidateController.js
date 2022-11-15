@@ -24,6 +24,26 @@ class ValidateController {
     }
   }
 
+  //Insert Count 
+  async GenerateCountValidate(validateData) {
+
+    try{
+
+      //verifica se o insert ocorreu com sucesso!
+      var insertValidate = await validateRepository.GenerateCountValidate(validateData);
+
+      if(insertValidate)
+        return true;
+      else
+        return false;
+
+    }catch(e){
+
+      console.log(e);
+      return false;
+    }
+  }
+
   //ATUALIZA A DENUNCIA
   async UpdateValidate(validateData) {
 

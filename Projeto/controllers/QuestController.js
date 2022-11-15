@@ -158,12 +158,15 @@ class QuestController {
 
       var count = await questRepository.GetQuestaoDenunciadaByQuestaoId(questaoId);
 
+      console.log("controller - cont = "+count.NumDenuncias);
+
       if (count != undefined) {
         return count;
       }
       else {
         console.log("Erro ao buscar Questão");
-        return undefined;
+        count.NumDenuncias = 0;
+        return count;
       }
 
     } catch (e) {
