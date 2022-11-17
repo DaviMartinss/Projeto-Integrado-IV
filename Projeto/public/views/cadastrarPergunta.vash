@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Pé de meia - Ped1/2</title>
+      <title>Show do Milhão</title>
       <!-- Meta -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,11 +20,11 @@
          <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
             <div class="d-flex flex-column align-content-end">
                <div class="app-auth-body mx-auto">
-                  
+
                   <h2 class="auth-heading text-center mb-4">Adicionar Pergunta</h2>
                   <div class="auth-form-container text-start mx-auto">
                      <form class="auth-form auth-signup-form" method="post" action="/GeneratePergunta">
-                        
+
                          <div class="mb-3">
                            <input id="addTopico" name="TopicoQuestao" type="text" class="form-control" placeholder="Informe o Tópico da Questão" required="required">
                         </div>
@@ -32,7 +32,7 @@
                         <div class="mb-3">
                            <input id="addPergunta" name="Pergunta" type="text" class="form-control" placeholder="Informe a pergunta" required="required">
                         </div>
-                        
+
                         <div class="mb-3">
                          <select name="NivelDificuldade" style="width: 359px;"  required="required">
                               <option value="0">Informe a dificuldade</option>
@@ -51,7 +51,7 @@
                         <div class="mb-3">
                            <input id="addRespostaFalse2" name="ItemB" type="text" class="form-control addRespostaFalse2" placeholder="Segunda Resposta Incorreta" required="required">
                         </div>
-                        
+
                         <div class="mb-3">
                            <input id="addRespostaFalse3" name="ItemC" type="text" class="form-control addRespostaFalse3" placeholder="Terceira Resposta Incorreta" required="required">
                         </div>
@@ -63,10 +63,10 @@
                        <div class="text-center">
                            <button type="reset" class="btn w-100 theme-btn mx-auto" style="background-color: red; margin-bottom: 10px;">Cancelar</button>
                         </div>
-               
+
                      </form>
                      <!--//auth-form-->
-                    
+
                   </div>
                   <!--//auth-form-container-->
                </div>

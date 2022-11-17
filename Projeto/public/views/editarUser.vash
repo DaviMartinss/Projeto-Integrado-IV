@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Pé de meia - Ped1/2</title>
+      <title>Show do Milhão</title>
       <!-- Meta -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"
 		integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      
+
       <!-- FontAwesome JS-->
       <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
       <!-- App CSS -->
@@ -38,7 +38,7 @@
                            <label for="editar-email"><b>Novo Email:</b></label>
                            <input id="editar-email" name="Email" type="email" class="form-control editar-email" placeholder="Novo Email" value="@model.userData.UserName" required="required">
                         </div>
-                        
+
                         <div class="text-center" style="margin-bottom: 10px;">
                            <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Salvar Alterações</button>
                         </div>

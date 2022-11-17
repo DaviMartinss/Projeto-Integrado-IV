@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Pé de meia - Ped1/2</title>
+      <title>Show do Milhão</title>
       <!-- Meta -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,11 +20,11 @@
          <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
             <div class="d-flex flex-column align-content-end">
                <div class="app-auth-body mx-auto">
-                  
+
                   <h2 class="auth-heading text-center mb-4">Editar Pergunta</h2>
                   <div class="auth-form-container text-start mx-auto">
                      <form class="auth-form auth-signup-form" action="/EditQuestion?questao=@model.pergunta.QuestaoId" method="post">
-                        
+
                          <div class="mb-3">
                          <label for="TopicoQuestao"><b>Tópico:</b></label>
                            <input id="TopicoQuestao" name="TopicoQuestao" type="text" class="form-control" placeholder="Informe o Tópico da Questão" value="@model.pergunta.TopicoQuestao" required="required">
@@ -58,7 +58,7 @@
                            <label for="addRespostaFalse2"><b>Resposta Incorreta 02:</b></label>
                            <input id="addRespostaFalse2" name="ItemB" type="text" class="form-control addRespostaFalse2" value="@model.pergunta.ItemB" required="required">
                         </div>
-                        
+
                         <div class="mb-3">
                            <label for="addRespostaFalse3"><b>Resposta Incorreta 03:</b></label>
                            <input id="addRespostaFalse3" name="ItemC" type="text" class="form-control addRespostaFalse3" value="@model.pergunta.ItemC" required="required">
@@ -73,7 +73,7 @@
                         </div>
                      </form>
                      <!--//auth-form-->
-                    
+
                   </div>
                   <!--//auth-form-container-->
                </div>
