@@ -82,6 +82,25 @@ class ValidateController {
       return false;
     }
   }
+  
+  //Validar questão
+  async GetValidateQuestion(email) {
+
+    try{
+
+      //retorna uma lista com as perguntas para o usuário validar
+      var questValidate = await validateRepository.GetValidateQuestion(email);
+
+      if(questValidate != undefined)
+        return questValidate;
+      else
+        return undefined;
+
+    }catch(e){
+      console.log(e);
+      return undefined;
+    }
+  }
 }
 
 

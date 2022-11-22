@@ -195,6 +195,36 @@ class ValidateRepository{
       return false;
     }
   }
+//
+async GetValidateQuestion(email){
+
+  try {
+
+    const db = await database.connect();
+
+    if(db != undefined)
+    {
+      const sql = 'SELECT * FROM "DenunciarValidar" AS "DV"'
+      + 'INNER JOIN "Questao" AS "Q" ON "Q"."QuestaoId" = "DV"."QuestaoId"'
+      + 'WHERE'
+      + '"UserName01"=$1 OR'
+      + '"Username02"=$1 OR'
+      + '"Username03"=$1 OR'
+      + '"Username04"=$1 OR'
+      + '"Username05"=$1';
+      const res = await db.query(sql, [email]);
+      db.release();
+      return res.rows;
+    }
+    else
+      return false;
+
+  } catch (ex) {
+
+    console.log(ex);
+    return false;
+  }
+}
 }
 
 export const validateRepository = new ValidateRepository();

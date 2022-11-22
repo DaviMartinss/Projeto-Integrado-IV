@@ -94,7 +94,6 @@ class QuestController {
 
       if(quest != undefined)
       {
-        console.log(quest);
         return quest;
       }
       else {

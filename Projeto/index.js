@@ -292,8 +292,10 @@ server.get("/GeneratePergunta", (req, res) => {
 });
 
 server.get("/validateQuestion", async (req, res) => {
-	var listPergunta = await questController.GetQuests();
-
+	
+	var userData = await userController.GetUserById(user.UserId);
+	var listPergunta = await validateController.GetValidateQuestion(userData.UserName);
+	
 	res.render("validarPergunta", { listPergunta});
 });
 
