@@ -36,11 +36,14 @@
                            </a>
                      </div>
 
-                     <div class="text-center" style="margin-bottom: 10px;">
-                        <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="ManageQuest">
-                          Painel de Perguntas
-                        </a>
-                     </div>
+                     @if(model.isAdmin)
+                     {
+                       <div class="text-center" style="margin-bottom: 10px;">
+                          <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="ManageQuest">
+                            Painel de Perguntas
+                          </a>
+                       </div>
+                     }
 
                   <div class="text-center" style="margin-bottom: 10px;">
                      <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="/Rank">
@@ -49,7 +52,7 @@
                   </div>
 
                <div class="text-center" style="margin-bottom: 10px;">
-                  <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="status.html">
+                  <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="/Status">
                    Visualizar Status
                   </a>
                 </div>

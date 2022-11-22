@@ -22,7 +22,6 @@ import { CLIENT_RENEG_WINDOW } from "tls";
 
 //Variavel global responsável pela seção do usuário
 var user = undefined;
-var questaoDenunciada = [];
 
 //Variavel global responsável pela Lista de Perguntas do Jogo
 var questList = undefined;
@@ -30,11 +29,17 @@ var questList = undefined;
 //Variavel global responsável pelo número da Questão no Jogo
 var questNumber = undefined;
 
+//Variavel global responsável pelo nivel do user(flag booleana)
+var isAdmin = 0;
+
 //Variavel global responsável pela ajuda do Jogo(flag booleana)
 var ajuda = 1;
 
 //Variavel global responsável pela contabilização dos acertos das Questoes do Jogo
 var moneyTotal = undefined;
+
+//Lista global responsável pelas questões denunciadas do user
+var questaoDenunciada = [];
 
 //Lista global responsável pela recompensas de acerto das Questoes do Jogo
 var listMoneyAcerts = [1000,5000,50000,100000,300000,500000,1000000];
@@ -99,13 +104,38 @@ server.get('/home', async (req, res) => {
 
 	if(user != undefined)
 	{
-
 		questNumber = undefined;
 		questList = undefined;
 		moneyTotal = undefined;
 		ajuda = 1;
 
-		res.render("home", { erroLogin: false, user});
+		var status = await statusController.GetStatusByUserId(user.UserId);
+
+		if(status == undefined)
+		{
+			status = {
+								NumPartidasJogada:0,
+								TotalPremio:0,
+								NumAlternativasEliminadas:0,
+								NumDerrotasErro:0,
+								NumDerrotasParada:0,
+								NumContribuicao:0,
+								NivelUsuario:isAdmin,
+								UserId:user.UserId
+							 }
+
+				var insertStatus = await statusController.GenerateStatus(status);
+
+				if(insertStatus == false)
+				{
+					console.log("Erro ao cadastrar usuário")
+					res.redirect("/");
+				}
+		}
+
+		isAdmin = parseInt(status.NivelUsuario);
+
+		res.render("home", { erroLogin: false, user, isAdmin});
 	}
 	else
 	{
@@ -292,10 +322,10 @@ server.get("/GeneratePergunta", (req, res) => {
 });
 
 server.get("/validateQuestion", async (req, res) => {
-	
+
 	var userData = await userController.GetUserById(user.UserId);
 	var listPergunta = await validateController.GetValidateQuestion(userData.UserName);
-	
+
 	res.render("validarPergunta", { listPergunta});
 });
 
@@ -571,17 +601,17 @@ server.get("/denunciarQuestion", async (req, res) => {
 		}
 
 		denuncia = await questController.GetQuestaoDenunciadaByQuestaoId(questionData.QuestaoId);
-	 } 
+	 }
 	 else
 	{
 	 	denuncia.NumDenuncias = denuncia.NumDenuncias + 1;
 	}
-	
+
 	if (denuncia.NumDenuncias == 2)
 	{
 		//gerar 5 usuários aleatórios
 		var userRandom = await userController.UserRandom(user.UserId);
-		
+
 		var denunciaData =
 		{
 			NumDenuncias: denuncia.NumDenuncias,
@@ -592,14 +622,14 @@ server.get("/denunciarQuestion", async (req, res) => {
 			UserName05: userRandom[4].UserName,
 			QuestaoId: questionData.QuestaoId
 		};
-		
-		var updateDenuncia = await validateController.UpdateValidate(denunciaData); 
+
+		var updateDenuncia = await validateController.UpdateValidate(denunciaData);
 		if(updateDenuncia)
 		{
 			for (let index = 0; index < 5; index++) {
 				sendEmailAtencaoDenuncia.run(userRandom[index].NickName, userRandom[index].UserName);
 			}
-			
+
 			console.log("sucesso update denuncia");
 		}else
 		{
@@ -607,9 +637,9 @@ server.get("/denunciarQuestion", async (req, res) => {
 		}
 	}
 	var questId = [];
-	
+
 	questaoDenunciada.push(questionData.QuestaoId);
-	
+
 	questList.forEach(quest => {
 		questId.push(quest.QuestaoId);
 	});
@@ -661,6 +691,24 @@ server.get('/Rank', async (req, res) => {
 		var listRank = await rankController.GetRank();
 
 		res.render("HallFama", { listRank});
+	}
+	else
+	{
+		console.log("LOGUE NO SISTEMA PRIMEIRO");
+		res.redirect("/");
+	}
+
+});
+
+// ========================== ROTA STATUS JOGADOR ==========================================================
+
+server.get('/Status', async (req, res) => {
+
+	if(user != undefined)
+	{
+		var userStatus = await statusController.GetStatusByUserId(user.UserId);
+
+		res.render("Status", {user, userStatus});
 	}
 	else
 	{
