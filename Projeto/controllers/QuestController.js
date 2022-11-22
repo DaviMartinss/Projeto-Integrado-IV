@@ -173,6 +173,29 @@ class QuestController {
     }
   }
 
+  //retorna uma questão
+  async QuestionRandom() {
+
+    try{
+
+      var quest = await questRepository.QuestionRandom();
+
+      if(quest != undefined)
+      {
+        return quest;
+      }
+      else {
+        console.log("Não foi possíevel buscar uma questão de forma aleatória");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
 }
 
 export const questController = new QuestController();

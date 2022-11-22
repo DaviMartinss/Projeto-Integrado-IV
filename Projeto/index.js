@@ -619,7 +619,6 @@ server.get("/denunciarQuestion", async (req, res) => {
 			const element = aux[index];
 
 			if(element == novaQuestao.QuestaoId){
-				console.log("é igual");
 				novaQuestao = await questController.QuestionRandom();
 				cont +=1;
 			}

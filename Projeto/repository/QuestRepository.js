@@ -234,6 +234,29 @@ class QuestRepository{
     }
   }
 
+  async QuestionRandom(){
+    
+    try {
+    
+      const db = await database.connect();
+      
+      if(db != undefined)
+      {
+        const sql = 'SELECT * FROM "Questao" ORDER BY RANDOM() LIMIT 1';
+        const res = await db.query(sql);
+        db.release();
+        return res.rows[0];
+      }
+      else
+        return false;
+
+    } catch (ex) {
+
+      console.log(ex);
+      return false;
+    }
+  }
+  
 }
 
 export const questRepository = new QuestRepository();
