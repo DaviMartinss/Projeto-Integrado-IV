@@ -30,6 +30,20 @@ class SendMailBemVindo {
     }
 }
 
+class SendEmailAtencaoDenuncia {
+    async run(user, email){
+
+        const mailSent = await transporter.sendMail({
+            text: "Olá, " +user+". Você tem uma nova pergunta para validar.",
+            subject: "Validar pergunta - Show do Milhão",
+            from: "Show do Milhão <testeufcweb@gmail.com>",
+            to: [email],
+        });
+        console.log(mailSent);
+        
+    }
+}
+
 class SendMail {
     async run(msg, email){ 
 
@@ -45,3 +59,4 @@ class SendMail {
 
 export const sendMail = new SendMail();
 export const sendMailBemVindo = new SendMailBemVindo();
+export const sendEmailAtencaoDenuncia = new SendEmailAtencaoDenuncia();

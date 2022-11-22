@@ -15,7 +15,7 @@ import { gameController } from "./controllers/GameController.js";
 
 //Configurações Globais da Aplicação
 //#region Configurações
-import { sendMail, sendMailBemVindo } from "./microservice/Email/SendEmail.js";
+import { sendMail, sendMailBemVindo, sendEmailAtencaoDenuncia } from "./microservice/Email/SendEmail.js";
 import { sendEmailController } from "./controllers/SendEmailController.js";
 import { validateController } from "./controllers/ValidateController.js";
 import { CLIENT_RENEG_WINDOW } from "tls";
@@ -596,6 +596,10 @@ server.get("/denunciarQuestion", async (req, res) => {
 		var updateDenuncia = await validateController.UpdateValidate(denunciaData); 
 		if(updateDenuncia)
 		{
+			for (let index = 0; index < 5; index++) {
+				sendEmailAtencaoDenuncia.run(userRandom[index].NickName, userRandom[index].UserName);
+			}
+			
 			console.log("sucesso update denuncia");
 		}else
 		{
