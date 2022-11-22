@@ -64,9 +64,9 @@ class ValidateRepository{
                   + ')'
                   + ' VALUES ($1,$2,$3);';
 
-        const values = [validate.denunciaData.NumDenuncias,
-                        validate.denunciaData.NumValidacao,
-                        validate.denunciaData.QuestaoId];
+        const values = [validate.NumDenuncias,
+                        validate.NumValidacao,
+                        validate.QuestaoId];
 
         await db.query(sql, values);
         db.release();
@@ -93,21 +93,19 @@ class ValidateRepository{
       {
         const sql = 'UPDATE "DenunciarValidar" SET'
                      + '"NumDenuncias"=$1,'
-                     + '"NumValidacao"=$2,'
-                     + '"UserName01"=$3,'
-                     + '"Username02"=$4,'
-                     + '"Username03"=$5,'
-                     + '"Username04"=$6,'
-                     + '"Username05"=$7'
-                     + 'WHERE "QuestaoId"=$8';
+                     + '"UserName01"=$2,'
+                     + '"Username02"=$3,'
+                     + '"Username03"=$4,'
+                     + '"Username04"=$5,'
+                     + '"Username05"=$6'
+                     + 'WHERE "QuestaoId"=$7';
 
        const values = [validate.NumDenuncias,
-                       validate.NumValidacao,
                        validate.UserName01,
-                       validate.Username02,
-                       validate.Username03,
-                       validate.Username04,
-                       validate.Username05,
+                       validate.UserName02,
+                       validate.UserName03,
+                       validate.UserName04,
+                       validate.UserName05,
                        validate.QuestaoId];
 
         await db.query(sql, values);

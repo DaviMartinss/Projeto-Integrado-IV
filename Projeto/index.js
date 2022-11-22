@@ -18,9 +18,11 @@ import { gameController } from "./controllers/GameController.js";
 import { sendMail, sendMailBemVindo } from "./microservice/Email/SendEmail.js";
 import { sendEmailController } from "./controllers/SendEmailController.js";
 import { validateController } from "./controllers/ValidateController.js";
+import { CLIENT_RENEG_WINDOW } from "tls";
 
 //Variavel global responsável pela seção do usuário
 var user = undefined;
+var questaoDenunciada = [];
 
 //Variavel global responsável pela Lista de Perguntas do Jogo
 var questList = undefined;
@@ -418,15 +420,16 @@ server.post("/Game", async(req, res) => {
 	let statusGame = undefined;
 
 	quest = {
-						Pergunta:questList[questNumber].Pergunta,
-						RespostaCorreta: questList[questNumber].RespostaCorreta,
-						ItemA: questList[questNumber].ItemA,
-						ItemB: questList[questNumber].ItemB,
-						ItemC: questList[questNumber].ItemC,
-						Resposta:req.body.Resposta,
-						OrderQuest:parseInt(req.body.OrderQuest),
-						Ajudar:parseInt(req.body.Ajudar)
-					}
+				QuestaoId: questList[questNumber].QuestaoId,
+				Pergunta:questList[questNumber].Pergunta,
+				RespostaCorreta: questList[questNumber].RespostaCorreta,
+				ItemA: questList[questNumber].ItemA,
+				ItemB: questList[questNumber].ItemB,
+				ItemC: questList[questNumber].ItemC,
+				Resposta:req.body.Resposta,
+				OrderQuest:parseInt(req.body.OrderQuest),
+				Ajudar:parseInt(req.body.Ajudar)
+			}
 
 		ajuda = quest.Ajudar;
 
@@ -473,15 +476,16 @@ server.get("/NextQuest", async(req, res) => {
 	if(questList[questNumber] != undefined)
 	{
 		quest = {
-							Pergunta:questList[questNumber].Pergunta,
-							RespostaCorreta: questList[questNumber].RespostaCorreta,
-							ItemA: questList[questNumber].ItemA,
-							ItemB: questList[questNumber].ItemB,
-							ItemC: questList[questNumber].ItemC,
-							Resposta:undefined,
-							OrderQuest:undefined,
-							Ajudar:ajuda
-						}
+					QuestaoId: questList[questNumber].QuestaoId,
+					Pergunta:questList[questNumber].Pergunta,
+					RespostaCorreta: questList[questNumber].RespostaCorreta,
+					ItemA: questList[questNumber].ItemA,
+					ItemB: questList[questNumber].ItemB,
+					ItemC: questList[questNumber].ItemC,
+					Resposta:undefined,
+					OrderQuest:undefined,
+					Ajudar:ajuda
+				}
 	}
 
 	//Ver qual vai ser a quantidade de questoes do Jogo
@@ -531,8 +535,6 @@ server.get("/StopGame", async(req, res) => {
 
 			moneyTotal = listMoneyStop[questNumber];
 
-			//console.log(moneyTotal);
-
 			let statusGame = 2;
 
 			res.render("jogo", {quest, moneyTotal, statusGame});
@@ -544,54 +546,105 @@ server.get("/denunciarQuestion", async (req, res) => {
 	var questionData = req.query
 
 	if (questionData.UserId == undefined) {
-		questionData = {QuestaoId: req.query.QuestaoId }
+		questionData = { QuestaoId: req.query.QuestaoId }
 	}
 
 	var denuncia = await questController.GetQuestaoDenunciadaByQuestaoId(questionData.QuestaoId);
 
-	if(denuncia != undefined)
-	{
-		if(denuncia.NumDenuncias == 2)
+	if (denuncia == undefined) {
+		var denunciaData =
 		{
-			//gerar 5 usuários aleatórios
-			var userRandom = await userController.UserRandom(user.UserId);
-	
-			var denunciaData = 
-			{
-				NumDenuncias: denuncia.NumDenuncias,
-				NumValidacao: 0,
-				UserName01: userRandom[0].NickName,
-				UserName02: userRandom[1].NickName,
-				UserName03: userRandom[2].NickName,
-				UserName04: userRandom[3].NickName,
-				UserName05: userRandom[4].NickName,
-				QuestaoId: questionData.QuestaoId
-			};
-	
-			var insertDenuncia = await validateController.GenerateValidate(denunciaData);
-			
-			if(insertDenuncia)
-			{
-				res.redirect("/NextQuest");
-			}
-			else
-			{
-				console.log("Erro");
-			}
-		
+			NumDenuncias: 1,
+			NumValidacao: 0,
+	 		QuestaoId: questionData.QuestaoId
+	 	}
+
+		var insertDenuncia = await validateController.GenerateCountValidate(denunciaData);
+
+		if(insertDenuncia)
+		{
+			console.log("sucesso insert denuncia");
+		}else{
+			console.log("erro insert denuncia");
 		}
+
+		denuncia = await questController.GetQuestaoDenunciadaByQuestaoId(questionData.QuestaoId);
+	 } 
+	 else
+	{
+	 	denuncia.NumDenuncias = denuncia.NumDenuncias + 1;
 	}
 	
-	var denunciaData = 
+	if (denuncia.NumDenuncias == 2)
+	{
+		//gerar 5 usuários aleatórios
+		var userRandom = await userController.UserRandom(user.UserId);
+		
+		var denunciaData =
 		{
-			NumDenuncias: denuncia.NumDenuncias,//passar o cotador
-			NumValidacao: 0,
+			NumDenuncias: denuncia.NumDenuncias,
+			UserName01: userRandom[0].UserName,
+			UserName02: userRandom[1].UserName,
+			UserName03: userRandom[2].UserName,
+			UserName04: userRandom[3].UserName,
+			UserName05: userRandom[4].UserName,
 			QuestaoId: questionData.QuestaoId
 		};
+		
+		var updateDenuncia = await validateController.UpdateValidate(denunciaData); 
+		if(updateDenuncia)
+		{
+			console.log("sucesso update denuncia");
+		}else
+		{
+			console.log("erro update denuncia");
+		}
+	}
+	var questId = [];
 	
-	var insertDenuncia = await validateController.GenerateCountValidate(denunciaData);
+	questaoDenunciada.push(questionData.QuestaoId);
+	
+	questList.forEach(quest => {
+		questId.push(quest.QuestaoId);
+	});
 
-	
+	var aux = true;
+	var novaQuestao;
+	while(aux){
+		novaQuestao = await questController.QuestionRandom();
+		var cont = 0;
+		var aux = [];
+		aux = questList.concat(questaoDenunciada);
+		for (let index = 0; index < aux.length; index++) {
+			const element = aux[index];
+
+			if(element == novaQuestao.QuestaoId){
+				console.log("é igual");
+				novaQuestao = await questController.QuestionRandom();
+				cont +=1;
+			}
+		}
+		if(cont == 0)
+			aux = false;
+	}
+
+	questList[questNumber] = novaQuestao
+
+	let statusGame = undefined;
+	var quest = {
+		QuestaoId: questList[questNumber].QuestaoId,
+		Pergunta:questList[questNumber].Pergunta,
+		RespostaCorreta: questList[questNumber].RespostaCorreta,
+		ItemA: questList[questNumber].ItemA,
+		ItemB: questList[questNumber].ItemB,
+		ItemC: questList[questNumber].ItemC,
+		Resposta:undefined,
+		OrderQuest:undefined,
+		Ajudar:ajuda
+	}
+
+	res.render("jogo", {quest, moneyTotal,statusGame});
+
 });
 
 // ========================== ROTAS RANK ========================================================
