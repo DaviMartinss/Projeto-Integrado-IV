@@ -45,7 +45,7 @@
               <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                 <div class="col-auto">
-                  <a class="btn app-btn-secondary" href="ManageQuest">
+                  <a class="btn app-btn-secondary" href="/home">
                     Voltar
                   </a>
                 </div>
