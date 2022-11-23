@@ -96,6 +96,8 @@ class QuestRepository{
 
     try {
 
+      console.log("O id da quesãodenunciada é = "+questionData.QuestaoId);
+      
       const db = await database.connect();
 
       if(db != undefined)

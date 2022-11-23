@@ -26,7 +26,7 @@
 
   <!-- FontAwesome JS-->
   <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
-  <script src="../scripts/cartaoCredito.js"></script>
+  <script src="/scripts/question.js"></script>
   <!-- App CSS -->
   <link id="theme-style" rel="stylesheet" href="assets/css/portal.css" />
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -84,7 +84,7 @@
                             <tr>
                         <td class="cell">@pergunta.Pergunta</td>
                         <td class="cell">
-                          <button type="button" class="btn-sm app-btn-secondary">
+                          <button type="button" class="btn-sm app-btn-secondary" onClick="validarDenunciar(@pergunta.QuestaoId)">
                             Validar
                           </button>
                         </td>

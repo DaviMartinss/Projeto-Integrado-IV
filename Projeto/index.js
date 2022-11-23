@@ -682,6 +682,42 @@ server.get("/denunciarQuestion", async (req, res) => {
 
 });
 
+//Validar denuncia
+server.get("/validarDenunciar", async (req, res) => {
+	var questionData = { QuestaoId: req.query.QuestaoId }
+	
+	//Pegar a questão que vai ser atualizada
+	var questDenuncia = await validateController.GetDenunciarValidarByQuestaoId(questionData.QuestaoId);
+	questDenuncia.NumValidacao = questDenuncia.NumValidacao + 1; //Soma um ao Numero de validação
+
+	var validarDenunciarData =
+		{
+			QuestaoId: questionData.QuestaoId,
+			NumValidacao: questDenuncia.NumValidacao
+	 	}
+
+	var UpdateNumValidacao = await validateController.UpdateNumValidacao(validarDenunciarData);
+
+	if(UpdateNumValidacao)
+	{
+
+		if(questDenuncia.NumValidacao == 5)
+		{
+			console.log("O id da questao p/ deletar é = "+questionData.QuestaoId);
+			let deleteQuest = await questController.DeleteQuest(questionData);
+			if(deleteQuest)
+			{
+				res.redirect("/validateQuestion");
+			}
+			else
+			{
+				console.log("Falha ao deletar questão");
+			}
+		}
+	}else{
+		console.log("Falha ao realizar Update");
+	}
+});
 // ========================== ROTAS RANK ========================================================
 
 server.get('/Rank', async (req, res) => {

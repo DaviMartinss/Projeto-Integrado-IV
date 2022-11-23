@@ -101,6 +101,49 @@ class ValidateController {
       return undefined;
     }
   }
+
+  //Retorna a pergunga que vai ser valida
+  async GetDenunciarValidarByQuestaoId(questId) {
+
+    try{
+
+      var quest = await validateRepository.GetDenunciarValidarByQuestaoId(questId);
+
+      if(quest != undefined)
+      {
+        return quest;
+      }
+      else {
+        console.log("NENHUMA QUESTÃO ENCONTRADA!");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
+
+  //Atualiza a quantidade de validação
+  async UpdateNumValidacao(validarDenunciarData) {
+
+    try{
+
+      //verifica se o update ocorreu com sucesso!
+      var updateValidate = await validateRepository.UpdateNumValidacao(validarDenunciarData);
+
+      if(updateValidate)
+        return true;
+      else
+        return false;
+
+    }catch(e){
+
+      console.log(e);
+      return false;
+    }
+  }
 }
 
 
