@@ -48,14 +48,7 @@
                     Nova Pergunta
                   </a>
                 </div>
-
-
-                <div class="col-auto">
-                  <a class="btn app-btn-secondary" href="validateQuestion">
-                    Validar
-                  </a>
-                </div>
-
+                
                 <div class="col-auto">
                   <a class="btn app-btn-secondary" href="/home">
                     Voltar

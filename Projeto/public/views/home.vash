@@ -45,6 +45,12 @@
                        </div>
                      }
 
+                     <div class="text-center" style="margin-bottom: 10px;">
+                        <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="validateQuestion">
+                        Validar Denúncia
+                     </a>
+                </div>
+
                   <div class="text-center" style="margin-bottom: 10px;">
                      <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="/Rank">
                        Hall da Fama
