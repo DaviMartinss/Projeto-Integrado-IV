@@ -8,12 +8,12 @@ class QuestController {
   async GenerateQuest(questData) {
 
     try{
-      questData.Validacao = 'Sim';
+      questData.Validacao = 'Não';
       //verifica se o insert ocorreu com sucesso!
       var insertQuest = await questRepository.InsertQuest(questData);
 
       if(insertQuest)
-        return true;
+        return insertQuest;
       else
         return false;
 

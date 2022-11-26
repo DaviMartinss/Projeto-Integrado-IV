@@ -79,6 +79,11 @@ server.get('/', (req, res) => {
 
 	let test = 'TESTANDO'
 	user = undefined; //Caso o user volte para tela de inicio a constante global é redefinida, ou seja, fecha e "sessão"
+	user = undefined;
+	questNumber = undefined;
+	questList = undefined;
+	moneyTotal = undefined;
+
 	res.render('login', {test, erroLogin: false});
 });
 
@@ -143,6 +148,12 @@ server.get('/home', async (req, res) => {
 		res.redirect("/");
 	}
 
+});
+
+//ROTA DE LOGIN DO USUÁRIO
+server.get('/Exit', (req, res) => {
+
+	res.redirect('/');
 });
 
 // ========================== ROTAS CRUD USUÁRIO ========================================================
@@ -369,8 +380,45 @@ server.post("/GeneratePergunta",  async(req, res) => {
 	//verifica se o insert ocorreu com sucesso!
 	var insertPergunta = await questController.GenerateQuest(perguntaData);
 
-	if(insertPergunta)
+	console.log(insertPergunta);
+
+	if(insertPergunta.QuestaoId)
 	{
+
+		//gerar 5 usuários aleatórios
+		var userRandom = await userController.UserRandom(user.UserId);
+
+		console.log(userRandom);
+
+		var validateData =
+		{
+			NumDenuncias: 0,
+			NumValidacao: 0,
+			UserName01: userRandom[0].UserName,
+			UserName02: userRandom[1].UserName,
+			UserName03: userRandom[2].UserName,
+			UserName04: userRandom[3].UserName,
+			UserName05: userRandom[4].UserName,
+	 		QuestaoId: insertPergunta.QuestaoId
+	 	}
+
+		console.log(validateData);
+
+		var insertValidate = await validateController.GenerateValidate(validateData);
+
+		if(insertValidate)
+		{
+			console.log("sucesso insert validação");
+
+			for (let index = 0; index < 5; index++) {
+				//sendEmailAtencaoDenuncia.run(userRandom[index].NickName, userRandom[index].UserName);
+			}
+
+		}else{
+			console.log("erro insert validação");
+		}
+
+
 		res.redirect("/ManageQuest");
 	}
 	else
@@ -444,7 +492,6 @@ server.get("/Game", async(req, res) => {
 });
 
 //AQUI VAI TRATAR DA VALIDAÇÃO DA RESPOSTA DO USUARIO RETORNANDO O ERRO E O ACERTO
-//FAZER MELHORIAS E ADD O RESTO DAS COISAS
 server.post("/Game", async(req, res) => {
 
 	var quest = undefined;
@@ -496,7 +543,6 @@ server.post("/Game", async(req, res) => {
 		res.render("jogo", {quest, moneyTotal,statusGame});
 
 });
-
 
 //AQUI É RESPONSAVEL PELO CARREGAMENTO DA PROXIMA PERGUNTA / VERIFICAÇÃO DO FIM DE GAME
 server.get("/NextQuest", async(req, res) => {
@@ -685,7 +731,7 @@ server.get("/denunciarQuestion", async (req, res) => {
 //Validar denuncia
 server.get("/validarDenunciar", async (req, res) => {
 	var questionData = { QuestaoId: req.query.QuestaoId }
-	
+
 	//Pegar a questão que vai ser atualizada
 	var questDenuncia = await validateController.GetDenunciarValidarByQuestaoId(questionData.QuestaoId);
 	questDenuncia.NumValidacao = questDenuncia.NumValidacao + 1; //Soma um ao Numero de validação

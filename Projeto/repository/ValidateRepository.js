@@ -26,10 +26,10 @@ class ValidateRepository {
         const values = [validate.NumDenuncias,
         validate.NumValidacao,
         validate.UserName01,
-        validate.Username02,
-        validate.Username03,
-        validate.Username04,
-        validate.Username05,
+        validate.UserName02,
+        validate.UserName03,
+        validate.UserName04,
+        validate.UserName05,
         validate.QuestaoId];
 
         await db.query(sql, values);
@@ -46,7 +46,7 @@ class ValidateRepository {
     }
   }
 
-  //Insert Count 
+  //Insert Count
   async GenerateCountValidate(validate) {
 
     try {

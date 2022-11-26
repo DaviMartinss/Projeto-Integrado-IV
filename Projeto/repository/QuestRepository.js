@@ -22,7 +22,8 @@ class QuestRepository{
                     + '"TopicoQuestao",'
                     + '"Validacao"'
                   + ')'
-                  + ' VALUES ($1,$2,$3,$4,$5,$6,$7,$8);';
+                  + ' VALUES ($1,$2,$3,$4,$5,$6,$7,$8) '
+                  + ' RETURNING "QuestaoId";';
 
         const values = [quest.Pergunta,
                         quest.RespostaCorreta,
@@ -33,9 +34,9 @@ class QuestRepository{
                         quest.TopicoQuestao,
                         quest.Validacao];
 
-        await db.query(sql, values);
+        const res = await db.query(sql, values);
         db.release();
-        return true;
+        return res.rows[0];
       }
       else
         return false;
@@ -97,7 +98,7 @@ class QuestRepository{
     try {
 
       console.log("O id da quesãodenunciada é = "+questionData.QuestaoId);
-      
+
       const db = await database.connect();
 
       if(db != undefined)
@@ -237,11 +238,11 @@ class QuestRepository{
   }
 
   async QuestionRandom(){
-    
+
     try {
-    
+
       const db = await database.connect();
-      
+
       if(db != undefined)
       {
         const sql = 'SELECT * FROM "Questao" ORDER BY RANDOM() LIMIT 1';
@@ -258,7 +259,7 @@ class QuestRepository{
       return false;
     }
   }
-  
+
 }
 
 export const questRepository = new QuestRepository();

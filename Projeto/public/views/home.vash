@@ -47,7 +47,7 @@
 
                      <div class="text-center" style="margin-bottom: 10px;">
                         <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="validateQuestion">
-                        Validar Denúncia
+                        Validar Perguntas
                      </a>
                 </div>
 
@@ -63,13 +63,23 @@
                   </a>
                 </div>
 
-            <div class="text-center">
-               <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="About">
-                 Sobre o Jogo
-               </a>
-            </div>
+                <div class="text-center" style="margin-bottom: 10px;">
+                   <a class="btn app-btn-primary w-100 theme-btn mx-auto" href="About">
+                     Sobre o Jogo
+                   </a>
+                </div>
 
-                  </div>
+                <div class="text-center" style="margin-bottom: 10px;">
+                   <a class="btn app-btn-primary w-100 theme-btn mx-auto" style="background:red;" href="/Exit">
+                    Sair
+                   </a>
+                 </div>
+
+
+
+
+
+                </div>
                   <!--//auth-form-container-->
                </div>
                <!--//auth-body-->
