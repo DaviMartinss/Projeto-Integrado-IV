@@ -200,11 +200,12 @@ class ValidateRepository {
         const sql = 'SELECT * FROM "DenunciarValidar" AS "DV"'
           + 'INNER JOIN "Questao" AS "Q" ON "Q"."QuestaoId" = "DV"."QuestaoId"'
           + 'WHERE'
-          + '"UserName01"=$1 OR'
+          + '("UserName01"=$1 OR'
           + '"Username02"=$1 OR'
           + '"Username03"=$1 OR'
           + '"Username04"=$1 OR'
-          + '"Username05"=$1';
+          + '"Username05"=$1) AND'
+          +' "DV"."QuestaoId" NOT IN (SELECT "QuestaoId" FROM "RejeitarDenuncia" WHERE "UserName"=$1)';
         const res = await db.query(sql, [email]);
         db.release();
         return res.rows;
@@ -266,6 +267,37 @@ class ValidateRepository {
 
     } catch (ex) {
 
+      console.log(ex);
+      return false;
+    }
+  }
+
+  //Rejeitar denuncia
+  async RejeitarDenuncia(rejeitarData) {
+
+    try {
+
+      const db = await database.connect();
+
+      if (db != undefined) {
+        const sql = 'INSERT INTO "RejeitarDenuncia" '
+          + '('
+          + '"QuestaoId",'
+          + '"UserName"'
+          + ')'
+          + ' VALUES ($1,$2);';
+
+        const values = [rejeitarData.QuestaoId,
+          rejeitarData.UserName];
+
+        await db.query(sql, values);
+        db.release();
+        return true;
+      }
+      else
+        return false;
+
+    } catch (ex) {
       console.log(ex);
       return false;
     }

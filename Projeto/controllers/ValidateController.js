@@ -144,6 +144,26 @@ class ValidateController {
       return false;
     }
   }
+
+  //Rejeitar denúncia
+  async RejeitarDenuncia(rejeitarData) {
+
+    try{
+
+      //verifica se o insert ocorreu com sucesso!
+      var insertRejeitarDenuncia = await validateRepository.RejeitarDenuncia(rejeitarData);
+
+      if(insertRejeitarDenuncia)
+        return true;
+      else
+        return false;
+
+    }catch(e){
+
+      console.log(e);
+      return false;
+    }
+  }
 }
 
 

@@ -87,7 +87,15 @@
                           <button type="button" class="btn-sm app-btn-secondary" onClick="validarDenunciar(@pergunta.QuestaoId)">
                             Validar
                           </button>
+
+                          <button type="button" class="btn-sm app-btn-secondary" onClick="validarDenunciar(@pergunta.QuestaoId)">
+                            Rejeitar
+                          </button>
+
                         </td>
+
+                       
+
                       </tr>
                           });
                         }

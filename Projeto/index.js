@@ -732,9 +732,8 @@ server.get("/denunciarQuestion", async (req, res) => {
 server.get("/validarDenunciar", async (req, res) => {
 	var questionData = { QuestaoId: req.query.QuestaoId }
 
-	//Pegar a questão que vai ser atualizada
 	var questDenuncia = await validateController.GetDenunciarValidarByQuestaoId(questionData.QuestaoId);
-	questDenuncia.NumValidacao = questDenuncia.NumValidacao + 1; //Soma um ao Numero de validação
+	questDenuncia.NumValidacao = questDenuncia.NumValidacao + 1;
 
 	var validarDenunciarData =
 		{
@@ -749,7 +748,6 @@ server.get("/validarDenunciar", async (req, res) => {
 
 		if(questDenuncia.NumValidacao == 5)
 		{
-			console.log("O id da questao p/ deletar é = "+questionData.QuestaoId);
 			let deleteQuest = await questController.DeleteQuest(questionData);
 			if(deleteQuest)
 			{
@@ -764,6 +762,28 @@ server.get("/validarDenunciar", async (req, res) => {
 		console.log("Falha ao realizar Update");
 	}
 });
+
+//Rejeitar Denunciar
+server.get("/rejeitarDenunciar", async (req, res) => {
+
+	var rejeitarData = 
+	{
+		QuestaoId: req.query.QuestaoId,
+		UserName: user.UserName
+	}
+
+	var rejeitarDenuncia = await validateController.RejeitarDenuncia(rejeitarData);
+	if(rejeitarDenuncia)
+	{
+		//recarregar denúncias do usuário
+		console.log("Denúncia aceita com sucesso");
+	}else
+	{
+		console.log("Falha ao rejeitar denúncia");
+	}
+});
+
+
 // ========================== ROTAS RANK ========================================================
 
 server.get('/Rank', async (req, res) => {
