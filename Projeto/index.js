@@ -776,7 +776,7 @@ server.get("/rejeitarDenunciar", async (req, res) => {
 	if(rejeitarDenuncia)
 	{
 		//recarregar denúncias do usuário
-		console.log("Denúncia aceita com sucesso");
+		res.redirect("/validateQuestion");
 	}else
 	{
 		console.log("Falha ao rejeitar denúncia");

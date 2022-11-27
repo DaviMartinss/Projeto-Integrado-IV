@@ -51,7 +51,7 @@ function validarDenunciar(questaoId) {
   })
 }
 
-function validarDenunciar(questaoId) {
+function rejeitarDenunciar(questaoId) {
 
   Swal.fire({
     title: 'Você tem certeza que deseja rejeitar a denunciar dessa pergunta?',
