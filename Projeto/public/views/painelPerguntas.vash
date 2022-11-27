@@ -102,9 +102,10 @@
                         <td class="cell">@pergunta.ItemC</td>
                         <td class="cell">
                           <a class="btn-sm app-btn-secondary"
-                            href="EditQuestion?pergunta=@pergunta.QuestaoId">Editar</a>
-
-                          <button type="button" class="btn-sm app-btn-secondary" onClick="confirm(@pergunta.QuestaoId)">
+                            href="EditQuestion?pergunta=@pergunta.QuestaoId">
+                            Editar
+                          </a>
+                          <button type="button" class="btn-sm app-btn-secondary" onClick="confirm(@pergunta.QuestaoId)" style="margin-top: 10px;">
                             Deletar
                           </button>
                         </td>

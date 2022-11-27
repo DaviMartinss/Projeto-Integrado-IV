@@ -73,7 +73,11 @@
                     <thead>
                       <tr>
                         <th class="cell">Perguntas</th>
-                        <th class="cell">Ações</th>
+                        <th class="cell">Resposta Correta</th>
+                        <th class="cell">Resposta Incorreta 01</th>
+                        <th class="cell">Resposta Incorreta 02</th>
+                        <th class="cell">Resposta Incorreta 03</th>
+                       <th class="cell">Ações</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -81,25 +85,26 @@
                         if(model.listPergunta != undefined){
 
                           model.listPergunta.forEach(pergunta => {
-                            <tr>
-                        <td class="cell">@pergunta.Pergunta</td>
-                        <td class="cell">
-                          <button type="button" class="btn-sm app-btn-secondary" onClick="validarDenunciar(@pergunta.QuestaoId)">
-                            Validar
-                          </button>
-
-                          <button type="button" class="btn-sm app-btn-secondary" onClick="rejeitarDenunciar(@pergunta.QuestaoId)">
-                            Rejeitar
-                          </button>
-
-                        </td>
-
-                       
-
-                      </tr>
-                          });
-                        }
-                      }
+                          <tr>
+                            <td class="cell">@pergunta.Pergunta</td>
+                            <td class="cell">@pergunta.RespostaCorreta</td>
+                            <td class="cell">@pergunta.ItemA</td>
+                            <td class="cell">@pergunta.ItemB</td>
+                            <td class="cell">@pergunta.ItemC</td>
+                            <td class="cell">
+                              <button type="button" class="btn-sm app-btn-secondary" onClick="validarDenunciar(@pergunta.QuestaoId)">
+                                Validar
+                              </button>
+                            </td>
+                            <td class="cell">
+                              <button type="button" class="btn-sm app-btn-secondary" onClick="rejeitarDenunciar(@pergunta.QuestaoId)">
+                                Rejeitar
+                              </button>
+                            </td>
+                        </tr>
+                      });
+                    }
+                  }
 
                     </tbody>
                   </table>
