@@ -85,3 +85,8 @@ CREATE TABLE "SendEmail" (
 	"UserId" INTEGER NOT NULL,
 	CONSTRAINT FK_USER FOREIGN kEY("UserId") REFERENCES "User"
 );
+
+CREATE TABLE "RejeitarDenuncia"(
+	"QuestaoId" INT NOT NULL,
+	"UserName" VARCHAR(50) NOT NULL
+);
