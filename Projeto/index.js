@@ -386,9 +386,9 @@ server.post("/GeneratePergunta",  async(req, res) => {
 	{
 
 		//gerar 5 usuários aleatórios
-		var userRandom = await userController.UserRandom(user.UserId);
+		var userRandom = await userController.UserRandomValidateInsert(user.UserId);
 
-		console.log(userRandom);
+		//console.log(userRandom);
 
 		var validateData =
 		{
@@ -396,13 +396,10 @@ server.post("/GeneratePergunta",  async(req, res) => {
 			NumValidacao: 0,
 			UserName01: userRandom[0].UserName,
 			UserName02: userRandom[1].UserName,
-			UserName03: userRandom[2].UserName,
-			UserName04: userRandom[3].UserName,
-			UserName05: userRandom[4].UserName,
 	 		QuestaoId: insertPergunta.QuestaoId
 	 	}
 
-		console.log(validateData);
+		//console.log(validateData);
 
 		var insertValidate = await validateController.GenerateValidate(validateData);
 
@@ -410,9 +407,9 @@ server.post("/GeneratePergunta",  async(req, res) => {
 		{
 			console.log("sucesso insert validação");
 
-			for (let index = 0; index < 5; index++) {
-				//sendEmailAtencaoDenuncia.run(userRandom[index].NickName, userRandom[index].UserName);
-			}
+			// for (let index = 0; index < 5; index++) {
+			// 	//sendEmailAtencaoDenuncia.run(userRandom[index].NickName, userRandom[index].UserName);
+			// }
 
 		}else{
 			console.log("erro insert validação");
@@ -745,8 +742,13 @@ server.get("/validarDenunciar", async (req, res) => {
 
 	if(UpdateNumValidacao)
 	{
-
-		if(questDenuncia.NumValidacao == 5)
+		//Validação para questão denunciada
+		if(questDenuncia.NumValidacao == 5 ||
+			(//Validação para questão cadastrada
+			 questDenuncia.UserName01 != undefined &&
+			 questDenuncia.Username02 != undefined &&
+			 questDenuncia.NumValidacao == 2
+			))
 		{
 			let deleteQuest = await questController.DeleteQuest(questionData);
 			if(deleteQuest)
@@ -766,15 +768,66 @@ server.get("/validarDenunciar", async (req, res) => {
 //Rejeitar Denunciar
 server.get("/rejeitarDenunciar", async (req, res) => {
 
-	var rejeitarData = 
+	var rejeitarData =
 	{
 		QuestaoId: req.query.QuestaoId,
 		UserName: user.UserName
 	}
 
 	var rejeitarDenuncia = await validateController.RejeitarDenuncia(rejeitarData);
+
 	if(rejeitarDenuncia)
 	{
+		var questDenuncia = await validateController.GetDenunciarValidarByQuestaoId(rejeitarData.QuestaoId);
+
+		//Validação para questão denunciada
+		if(questDenuncia.NumDenuncias != 5 ||
+			(//Validação para questão cadastrada
+			 questDenuncia.UserName01 != undefined &&
+			 questDenuncia.Username02 != undefined &&
+			 questDenuncia.NumDenuncias != 2
+			))
+		{
+			questDenuncia.NumDenuncias = questDenuncia.NumDenuncias + 1;
+
+			//console.log(questDenuncia);
+
+			var updateValidate = await validateController.UpdateValidate(questDenuncia);
+
+			if(updateValidate)
+			{
+				console.log("Sucesso ao realizar Update Rejeição");
+			}else{
+				console.log("Falha ao realizar Update");
+			}
+
+			//Validação para questão denunciada
+			if(questDenuncia.NumDenuncias == 5 ||
+				(//Validação para questão cadastrada
+				 questDenuncia.UserName01 != undefined &&
+				 questDenuncia.Username02 != undefined &&
+				 questDenuncia.NumDenuncias == 2
+				))
+			{
+				var quest = await questController.GetQuestById(rejeitarData.QuestaoId);
+
+				quest.Validacao = "Sim"
+
+				//console.log(quest);
+
+				var updateQuest = await questController.UpdateQuest(quest);
+
+				if(updateQuest)
+				{
+					console.log("Sucesso ao realizar Update Rejeição da questao");
+				}else{
+					console.log("Falha ao realizar Update");
+				}
+			}
+
+		}
+
+
 		//recarregar denúncias do usuário
 		res.redirect("/validateQuestion");
 	}else

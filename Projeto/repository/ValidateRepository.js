@@ -99,10 +99,10 @@ class ValidateRepository {
 
         const values = [validate.NumDenuncias,
         validate.UserName01,
-        validate.UserName02,
-        validate.UserName03,
-        validate.UserName04,
-        validate.UserName05,
+        validate.Username02,
+        validate.Username03,
+        validate.Username04,
+        validate.Username05,
         validate.QuestaoId];
 
         await db.query(sql, values);

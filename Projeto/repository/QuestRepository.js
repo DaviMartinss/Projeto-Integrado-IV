@@ -68,13 +68,13 @@ class QuestRepository{
                      + '"Validacao"=$8'
                      + 'WHERE "QuestaoId"=$9';
 
-         const values = [quest.questionData.Questao,
-                         quest.questionData.RespostaCorreta,
-                         quest.questionData.ItemA,
-                         quest.questionData.ItemB,
-                         quest.questionData.ItemC,
-                         quest.questionData.NivelDificuldade,
-                         quest.questionData.TopicoQuestao,
+         const values = [quest.Pergunta,
+                         quest.RespostaCorreta,
+                         quest.ItemA,
+                         quest.ItemB,
+                         quest.ItemC,
+                         quest.NivelDificuldade,
+                         quest.TopicoQuestao,
                          quest.Validacao,
                          quest.QuestaoId];
 

@@ -304,9 +304,10 @@
                      }
 
                       <div class="col-auto">
-                          <button type="button" class="btn-sm app-btn-secondary" onClick="denunciar(@model.quest.QuestaoId)">
+                          <button type="button" class="btn app-btn-secondary" 
+                          onClick="denunciar(@model.quest.QuestaoId)">
                                  Denunciar
-                               </button>
+                          </button>
                        </div>
                      </div>
 

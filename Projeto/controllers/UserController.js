@@ -260,6 +260,29 @@ class UserController {
       return undefined;
     }
   }
+
+  //Retorna 2 usuários aleatórios diferente do user atual
+  async UserRandomValidateInsert(userId) {
+
+    try{
+
+      var users = await userRepository.UserRandomValidateInsert(userId);
+
+      if(users != undefined)
+      {
+        return users;
+      }
+      else {
+        console.log("Não foi possíevel buscar os usuários de forma aleatória");
+        return undefined;
+      }
+
+    }catch(e){
+
+      console.log(e);
+      return undefined;
+    }
+  }
 }
 
 export const userController = new UserController();
